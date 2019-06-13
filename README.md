@@ -24,6 +24,6 @@ Source: https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pi
 Data: Download diabetes.zip from Kaggle.
 
    #### Problem statement :   
-    The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, based on certain diagnostic
-    measurements included in the dataset. 
+    The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, 
+    based on certain diagnostic measurements included in the dataset. 
 
