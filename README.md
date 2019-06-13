@@ -1,11 +1,13 @@
 # Diabetes
 1. Business Problem
 1.1. Description
+
 Source: https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pima-indians-diabetes-database.zip/
 
 Data: Download diabetes.zip from Kaggle.
 
 Problem statement :
+
 The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, based on certain diagnostic measurements included in the dataset. 
 
 1.2 Real-world/Business objectives and constraints
@@ -19,14 +21,14 @@ The objective of the dataset is to diagnostically predict whether or not a patie
     iv. Probability of a data-point belonging to each class is needed.
     
 2.1.1. Data Overview
+
 Source: https://www.kaggle.com/c/msk-redefining-cancer-treatment/data
 
 We have one data file: one conatins the information about the diabetes.
 
 Data file information:
+
 diabetes (Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome)
-
-
 
 Number of Instances: 768
 
