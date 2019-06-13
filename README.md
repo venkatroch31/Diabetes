@@ -27,39 +27,3 @@ Data: Download diabetes.zip from Kaggle.
 
     The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, based on certain diagnostic        measurements included in the dataset. 
 
-## 3. Real-world/Business objectives and constraints
-
-    i. No low-latency requirement.    
-    ii. Interpretability is important.    
-    iii. Errors can be very costly.    
-    iv. Probability of a data-point belonging to each class is needed.
-    
-## 4. Data Overview
-
-   We have one data file: one conatins the information about the diabetes.
-
-   #### Data file information:
-
-        diabetes (Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome)
-  
- ## 5. Machine Learing Objectives and Constraints
-  
-   #### Objective:
-
-        Predict the probability of each data-point belonging to two classes.
-
-   #### Constraints:
-
-        i. Interpretability
-        ii. Class probabilities are needed.
-        iii. Penalize the errors in class probabilites => Metric is Log-loss.
-        iv. No Latency constraints.
-        
-   #### Train, CV and Test Datasets
-
-     Split the dataset randomly into three parts train, cross validation and test with 64%,16%, 20% of data respectively
-
-
-
-
-    
