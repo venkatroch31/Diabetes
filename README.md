@@ -1,8 +1,23 @@
 # Diabetes
 
-1. Business Problem
+1. Introduction
 
- 1.1. Description
+This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases. The objective is to predict based on diagnostic measurements whether a patient has diabetes.
+
+Several constraints were placed on the selection of these instances from a larger database. In particular, all patients here are females at least 21 years old of Pima Indian heritage.
+
+    i. Pregnancies: Number of times pregnant
+    ii. Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test
+    iii. BloodPressure: Diastolic blood pressure (mm Hg)
+    iv. SkinThickness: Triceps skin fold thickness (mm)
+    v. Insulin: 2-Hour serum insulin (mu U/ml)
+    vi. BMI: Body mass index (weight in kg/(height in m)^2)
+    vii. DiabetesPedigreeFunction: Diabetes pedigree function
+    viii. Age: Age (years)
+    ix. Outcome: Class variable (0 or 1)
+
+
+1. Description
 
 Source: https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pima-indians-diabetes-database.zip/
 
@@ -12,7 +27,7 @@ Problem statement :
 
 The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, based on certain diagnostic measurements included in the dataset. 
 
-1.2 Real-world/Business objectives and constraints
+2 Real-world/Business objectives and constraints
 
     i. No low-latency requirement.
     
@@ -22,7 +37,7 @@ The objective of the dataset is to diagnostically predict whether or not a patie
     
     iv. Probability of a data-point belonging to each class is needed.
     
-2.1.1. Data Overview
+3. Data Overview
 
     Source: https://www.kaggle.com/c/msk-redefining-cancer-treatment/data
 
@@ -32,23 +47,4 @@ The objective of the dataset is to diagnostically predict whether or not a patie
 
         diabetes (Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome)
 
-    Number of Instances: 768
-
-    Number of Attributes: 8 plus class
-
-    For Each Attribute: (all numeric-valued)
-
-        i. Number of times pregnant
-        ii. Plasma glucose concentration a 2 hours in an oral glucose tolerance test
-        iii. Diastolic blood pressure (mm Hg)
-        iv. Triceps skin fold thickness (mm)
-        v. 2-Hour serum insulin (mu U/ml)
-        vi. Body mass index (weight in kg/(height in m)^2)
-        vii. Diabetes pedigree function
-        vii. Age (years)
-        ix. Class variable (0 or 1)
-
-    Missing Attribute Values: Yes
-
-    Class Distribution: (class value 1 is interpreted as "tested positive for diabetes")
-
+    
