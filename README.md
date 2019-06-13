@@ -2,7 +2,7 @@
 
 1. Business Problem
 
-1.1. Description
+ 1.1. Description
 
 Source: https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pima-indians-diabetes-database.zip/
 
