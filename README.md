@@ -17,7 +17,7 @@ Several constraints were placed on the selection of these instances from a large
     ix. Outcome: Class variable (0 or 1)
 
 
-1. Description
+2. Description
 
 Source: https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pima-indians-diabetes-database.zip/
 
@@ -27,7 +27,7 @@ Problem statement :
 
 The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, based on certain diagnostic measurements included in the dataset. 
 
-2 Real-world/Business objectives and constraints
+3 Real-world/Business objectives and constraints
 
     i. No low-latency requirement.
     
@@ -37,11 +37,9 @@ The objective of the dataset is to diagnostically predict whether or not a patie
     
     iv. Probability of a data-point belonging to each class is needed.
     
-3. Data Overview
+4. Data Overview
 
-    Source: https://www.kaggle.com/c/msk-redefining-cancer-treatment/data
-
-    We have one data file: one conatins the information about the diabetes.
+   We have one data file: one conatins the information about the diabetes.
 
     Data file information:
 
