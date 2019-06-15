@@ -27,3 +27,6 @@ Data: Download diabetes.zip from Kaggle.
     The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, 
     based on certain diagnostic measurements included in the dataset. 
 
+## 3. Train, CV and Test Datasets
+
+    Split the dataset randomly into three parts train, cross validation and test with 64%,16%, 20% of data respectively
