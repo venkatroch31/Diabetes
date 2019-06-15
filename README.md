@@ -29,4 +29,5 @@ Data: Download diabetes.zip from Kaggle.
 
 ## 3. Train, CV and Test Datasets
 
-    Split the dataset randomly into three parts train, cross validation and test with 64%,16%, 20% of data respectively
+    Split the dataset randomly into three parts train, cross validation and test 
+    with 64%,16%, 20% of data respectively
