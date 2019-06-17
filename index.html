@@ -121,6 +121,26 @@ ul {
 
     
   </p>
+  
+  <h2>Feature Engineering </h2>
+  <p>
+    Feature engineering is the process of transforming the gathered data into features that better represent the 
+    problem that we are trying to solve to the model, to improve its performance and accuracy.Feature engineering
+    create more input features from the existing features and also combine several features to produce more intuitive 
+    features to feed to the model.
+  </p>
+  <p>
+    The domain of the problem we are trying to tackle requires lots of related features. Since the data set is already 
+    provided, and by examining the data we can’t further create or dismiss any data at this point. In the data set we 
+    have the following 8 features.
+
+    (Pregnancies, Glucose, Blood Pressure, Skin Thickness, Insulin, BMI, Diabetes Pedigree Function, Age)
+
+    By the observation we can say that the 'Skin Thickness' is not an indicator of diabetes. But we can not deny the 
+    fact that it is unusable at this point. Therefore we will use all the features available. We separate the data set 
+    into features and the response that we are going to predict. We will assign the features to the X variable and the
+    response to the y variable.
+  </p>
   <h2>Train, CV and Test Datasets</h2>
   <p>
     Split the dataset randomly into three parts train, cross validation and test with 64%,16%, 20% of data respectively
