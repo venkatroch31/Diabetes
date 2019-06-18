@@ -6,10 +6,10 @@ h1 {
   font-family: verdana;
   font-size: 300%;
 }
-h2 {
+h3 {
   color: black;
   font-family: verdana;
-  font-size: 170%;
+  font-size: 150%;
 }
 p {
   color: black;
@@ -45,7 +45,7 @@ ul {
   </center>
   <h1><center>Machine Learning for pima Indian Diabetes</center></h1>
  
-  <h2>Introduction</h2>
+  <h3>Introduction</h3>
   <h4> What is Diabetes?</h4>
   <p>  Diabetes is a disease which occurs when the blood glucose level becomes high, which 
        ultimately leads to other health problems such as heart diseases, kidney disease etc. 
@@ -61,7 +61,7 @@ ul {
     
     
   </p>
-  <h2>Description </h2>
+  <h3>Description </h3>
   <p>
     <strong>Source:</strong> https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pima-indians-diabetes-database.zip/1 </p>
   <p>
@@ -79,7 +79,7 @@ ul {
   
   
   
-  <h2>Prerequisites</h2>
+  <h3>Prerequisites</h3>
   <ul>
          <li>Python 3</li>
          <li>Anaconda (Scikit Learn, Numpy, Pandas, Matplotlib, Seaborn)</li>
@@ -89,7 +89,7 @@ ul {
 
 
 
-<h2> Data </h2>
+<h3> Data Reading </h3>
   <p>First import neceessary libraries. When encountered with a data set, first we should analyse and get to know the data set. To get some understanding about
     the potential features and to see if data cleaning is needed.</p>
   <a>
@@ -133,7 +133,7 @@ ul {
           <li>Age: Age (years)</li>
           <li>Outcome: Class variable (0 or 1)</li>
       </ul>
-  <h2>Preprocessing of Data</h2>
+  <h3>Preprocessing of Data</h3>
   <p>
     Considered to be one of the crucial steps of the work flow, because it can make or break the model. 
     There is a saying in machine learning Better data beats fancier algorithms, which suggests better 
@@ -149,7 +149,7 @@ ul {
     
   </p>
   
-  <h2>Feature Engineering </h2>
+  <h3>Feature Engineering </h3>
   <p>
     Feature engineering is the process of transforming the gathered data into features that better represent the 
     problem that we are trying to solve to the model, to improve its performance and accuracy.Feature engineering
@@ -172,7 +172,7 @@ ul {
     X = diabetes.drop(diabetes.columns[8:],axis=1)<br/>
     y = diabetes['Outcome']
   </a>
-  <h2>Train, CV and Test Datasets</h2>
+  <h3>Train, CV and Test Datasets</h3>
   <p>
     Split the dataset randomly into three parts train, cross validation and test with 64%,16%, 20% of data respectively
     </p>
@@ -182,7 +182,7 @@ ul {
     X_train, X_cv, y_train, y_cv = train_test_split(X_train, y_train, test_size=0.2)
   </a>
   <h2>Machine Learning Models</h2>
-  <h2>Model Selection</h2>
+  <h3>Model Selection</h3>
   <p>
     Model selection or algorithm selection phase is the most exciting and the heart of machine learning. 
     It is the phase where we select the model which performs best for the data set at hand.
@@ -202,7 +202,7 @@ from sklearn.linear_model import LogisticRegression<br/>
 from sklearn.linear_model import LogisticRegression
 
   </a>
-  <h2>Evaluation Methods</h2>
+  <h3>Evaluation Methods</h3>
    <p>The Log Loss metric takes into account the probabilities underlying your models, and 
     not only the final output of the classification. The bolder the probabilities, the better
     will be your Log Loss — closer to zero. It is a measure of uncertainty, so a low Log Loss 
@@ -217,7 +217,7 @@ from sklearn.metrics import precision_recall_curve, auc, roc_curve
   </a>
   
   
-  <h2>k-Nearest Neighbors</h2>
+  <h3>k-Nearest Neighbors</h3>
   <p>
     The k-NN algorithm is arguably the simplest machine learning algorithm. Building the model 
     consists only of storing the training data set. To make a prediction for a new data point, 
@@ -303,11 +303,12 @@ For values of best alpha =  15 The test log loss is: 0.4740508957786449
   <center><img src="kk2.PNG" alt=" "> </center><br/>
   
   
-<h2>Naive Bayes</h2>
+<h3>Naive Bayes</h3>
 <p>
   Naive Bayes is one of the classification algorithms. Multinomial Naive Bayes classifier is 
   a specific instance of a Naive Bayes classifier which uses a multinomial distribution for each of the features.
 </p>
+	<h4> Hyper parameter tunning:</h4>
 	<a>
 		alpha = [0.00001, 0.0001, 0.001, 0.1, 1, 10, 100,1000] <br/>
 max_depth = [5, 10]<br/>
@@ -361,13 +362,14 @@ For values of best alpha =  1000 The test log loss is: 0.610907026228638<br/>
 	<br/>
 	<br/>
 	<center><img src="n2.PNG" alt=" "> </center><br/>
-<h2>Logistic Regresion</h2>
+<h3>Logistic Regresion</h3>
 <p>
   Logistic Regresion is one of the classification algorithms. the logistic regression is 
   a predictive analysis. Logistic regression is used to describe data and to explain the 
   relationship between one dependent binary variable and one or more nominal, ordinal, interval 
   or ratio-level independent variables.
 </p>
+	<h4> Hyper parameter tunning:</h4>
 	<a>
 		alpha = [10 ** x for x in range(-6, 3)] <br/>
 max_depth = [5, 10]<br/>
@@ -421,10 +423,11 @@ For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
 	<br/>
 	<center><img src="l2.PNG" alt=" "> </center><br/>
   
-<h2>Linear SVM</h2>
+<h3>Linear SVM</h3>
 <p>
   Linear SVM is one of the most common classification algorithms.
 </p>
+	<h4> Hyper parameter tunning:</h4>
 	<a>
 		alpha = [10 ** x for x in range(-5, 2)] <br/>
 max_depth = [5, 10]<br/>
@@ -475,12 +478,13 @@ For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
   <br/>
 	<br/>
 	<center><img src="s2.PNG" alt=" "> </center><br/>
-<h2>Random Forest</h2>
+<h3>Random Forest</h3>
 <p>
   Random forests or random decision forests are an ensemble learning method for classification, 
   that operates by constructing a multitude of decision trees at training time and outputting the 
   class that is the mode of the classes or mean prediction of the individual trees.
 </p>
+	<h4> Hyper parameter tunning:</h4>
 	<a>
 		alpha = [100,200,500,1000,2000]<br/>
 max_depth = [5, 10]<br/>
@@ -534,10 +538,11 @@ The test log loss is: 0.40209809205433056<br/>
   
   
   
-<h2>XgBoost</h2>
+<h3>XgBoost</h3>
 <p>
   XgBoost is one of the classification algorithms.
 </p>
+	<h4> Hyper parameter tunning:</h4>
   <a>
     alpha = [100,200,500,1000,2000]<br/>
 max_depth = [5, 10]<br/>
