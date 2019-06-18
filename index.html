@@ -402,10 +402,42 @@ plot_confusion_matrix(y_test, predicted_y)
 The cross validation log loss is: 0.5231746867910846<br/>
 The test log loss is: 0.40209809205433056<br/>
   </p>
+  
+  
+  
+  
 <h2>XgBoost</h2>
 <p>
   XgBoost is one of the classification algorithms.
 </p>
+  <a>
+    alpha = [100,200,500,1000,2000]<br/>
+max_depth = [5, 10]<br/>
+cv_log_error_array = []<br/>
+for i in alpha:<br/>
+   <tab> for j in max_depth:<br/>
+        	<tab>print("for alpha =", i)<br/>
+        	clf = XGBClassifier(n_estimators=i,  max_depth=j, random_state=42, n_jobs=-1)   <br/> 
+        	clf.fit(X_train, y_train)<br/>
+        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
+        	sig_clf.fit(X_train, y_train)<br/>
+        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
+        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
+        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
+        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
+	</tab>
+</tab>
+'''fig, ax = plt.subplots()<br/>
+ax.plot(alpha, cv_log_error_array,c='g')<br/>
+for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
+<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
+plt.grid()<br/>
+plt.title("Cross Validation Error for each alpha")<br/>
+plt.xlabel("Alpha i's")<br/>
+plt.ylabel("Error measure")<br/>
+plt.show()'''<br/>
+
+  </a>
   <a>
     best_alpha = np.argmin(cv_log_error_array)<br/>
 clf = XGBClassifier(n_estimators=alpha[int(best_alpha/2)], max_depth=max_depth[int(best_alpha%2)], random_state=42, n_jobs=-1)<br/>
