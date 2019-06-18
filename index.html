@@ -238,7 +238,7 @@ from sklearn.metrics import precision_recall_curve, auc, roc_curve
  plot_confusion_matrix(y_test, predicted_y)<br/>
 
   </a>
-  <
+  
   <p>
     For values of best alpha =  15 The train log loss is: 0.482811625102604<br/>
 For values of best alpha =  15 The cross validation log loss is: 0.5972448933083675<br/>
@@ -262,11 +262,11 @@ predict_y = sig_clf.predict_proba(X_test)<br/>
 print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
 plot_confusion_matrix(y_test, predicted_y)<br/>
   </a>
-  <a>
+  <p>
     For values of best alpha =  1000 The train log loss is: 0.637257119193431<br/>
 For values of best alpha =  1000 The cross validation log loss is: 0.6447167307015321<br/>
 For values of best alpha =  1000 The test log loss is: 0.610907026228638<br/>
-  </a>
+  </p>
 <h2>Logistic Regresion</h2>
 <p>
   Logistic Regresion is one of the most common classification algorithms.
@@ -285,11 +285,11 @@ predict_y = sig_clf.predict_proba(X_test)<br/>
 print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
 plot_confusion_matrix(y_test, predicted_y)<br/>
   </a>
-  <a>
+  <p>
     For values of best alpha =  0.001 The train log loss is: 0.5556489329065055<br/>
 For values of best alpha =  0.001 The cross validation log loss is: 0.6061400042217507<br/>
 For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
-  </a>
+  </p>
   
 <h2>Linear SVM</h2>
 <p>
@@ -309,11 +309,11 @@ predict_y = sig_clf.predict_proba(X_test)<br/>
 print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
 plot_confusion_matrix(y_test, predicted_y)<br/>
   </a>
-  <a>
+  <p>
     For values of best alpha =  0.001 The train log loss is: 0.5556489329065055<br/>
 For values of best alpha =  0.001 The cross validation log loss is: 0.6061400042217507<br/>
 For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
-  </a>
+  </p>
   
 <h2>Random Forest</h2>
 <p>
@@ -333,11 +333,11 @@ predict_y = sig_clf.predict_proba(X_test)<br/>
 print( "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
 plot_confusion_matrix(y_test, predicted_y)
   </a>
-  <a>
+  <p>
     The train log loss is: 0.3527041701902388<br/>
 The cross validation log loss is: 0.5231746867910846<br/>
 The test log loss is: 0.40209809205433056<br/>
-  </a>
+  </p>
 <h2>XgBoost</h2>
 <p>
   XgBoost is one of the most common classification algorithms.
@@ -356,11 +356,11 @@ predict_y = sig_clf.predict_proba(X_test)<br/>
 print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
 plot_confusion_matrix(y_test, predicted_y)<br/>
   </a>
-  <a>
+  <p>
     For values of best alpha =  100 The train log loss is: 0.3185430061919336<br/>
 For values of best alpha =  100 The cross validation log loss is: 0.5463100624120667<br/>
 For values of best alpha =  100 The test log loss is: 0.4462113287581887
-  </a>
+  </p>
   </div>
 </body>
 </html>
