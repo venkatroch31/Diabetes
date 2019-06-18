@@ -246,7 +246,8 @@ For values of best alpha =  15 The test log loss is: 0.4740508957786449
   </p>
 <h2>Naive Bayes</h2>
 <p>
-  Naive Bayes is one of the most common classification algorithms.
+  Naive Bayes is one of the classification algorithms. Multinomial Naive Bayes classifier is 
+  a specific instance of a Naive Bayes classifier which uses a multinomial distribution for each of the features.
 </p>
   <a>
  best_alpha = np.argmin(cv_log_error_array)<br/>
@@ -269,7 +270,10 @@ For values of best alpha =  1000 The test log loss is: 0.610907026228638<br/>
   </p>
 <h2>Logistic Regresion</h2>
 <p>
-  Logistic Regresion is one of the most common classification algorithms.
+  Logistic Regresion is one of the classification algorithms. the logistic regression is 
+  a predictive analysis. Logistic regression is used to describe data and to explain the 
+  relationship between one dependent binary variable and one or more nominal, ordinal, interval 
+  or ratio-level independent variables.
 </p>
   <a>
     best_alpha = np.argmin(cv_log_error_array)<br/>
@@ -317,7 +321,9 @@ For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
   
 <h2>Random Forest</h2>
 <p>
-  Random Forest is one of the most common classification algorithms.
+  Random forests or random decision forests are an ensemble learning method for classification, 
+  that operates by constructing a multitude of decision trees at training time and outputting the 
+  class that is the mode of the classes or mean prediction of the individual trees.
 </p>
   <a>
     best_alpha = np.argmin(cv_log_error_array)<br/>
@@ -340,7 +346,7 @@ The test log loss is: 0.40209809205433056<br/>
   </p>
 <h2>XgBoost</h2>
 <p>
-  XgBoost is one of the most common classification algorithms.
+  XgBoost is one of the classification algorithms.
 </p>
   <a>
     best_alpha = np.argmin(cv_log_error_array)<br/>
