@@ -223,6 +223,31 @@ from sklearn.metrics import precision_recall_curve, auc, roc_curve
     consists only of storing the training data set. To make a prediction for a new data point, 
     the algorithm finds the closest data points in the training data set — its "nearest neighbors"
   </p>
+<a>  
+  alpha = [5, 11, 15, 21, 31, 41, 51, 99]<br/>
+cv_log_error_array = []<br/>
+for i in alpha:<br/>
+<tab>
+    clf = KNeighborsClassifier(n_neighbors=i)<br/>
+    clf.fit(X_train, y_train)<br/>
+    sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
+    sig_clf.fit(X_train, y_train)<br/>
+    sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
+    cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
+    print("Log Loss :",log_loss(y_cv, sig_clf_probs)) 
+</tab>
+<br/>
+
+fig, ax = plt.subplots()<br/>
+ax.plot(alpha, cv_log_error_array,c='g')<br/>
+for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
+    <tab>ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i])) </tab><br/>
+plt.grid()<br/>
+plt.title("Cross Validation Error for each alpha")<br/>
+plt.xlabel("Alpha i's")<br/>
+plt.ylabel("Error measure")<br/>
+plt.show()
+  </a>
   <center><img src="kk.PNG" alt=" "> </center><br/>
   <a>
  best_alpha = np.argmin(cv_log_error_array)<br/>
