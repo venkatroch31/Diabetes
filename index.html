@@ -235,11 +235,11 @@ for i in alpha:<br/>
     sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
     cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
     # to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
-    print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
+      print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/></tab>
 fig, ax = plt.subplots()<br/>
 ax.plot(alpha, cv_log_error_array,c='g')<br/>
 for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))<br/>
+    <tab>  ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))<br/></tab>
 plt.grid()<br/>
 plt.title("Cross Validation Error for each alpha")<br/>
 plt.xlabel("Alpha i's")<br/>
