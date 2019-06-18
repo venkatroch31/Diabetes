@@ -227,14 +227,14 @@ from sklearn.metrics import precision_recall_curve, auc, roc_curve
   alpha = [5, 11, 15, 21, 31, 41, 51, 99]<br/>
 cv_log_error_array = []<br/>
 for i in alpha:<br/>
-<tab><a>
+<tab>
     clf = KNeighborsClassifier(n_neighbors=i)<br/>
     clf.fit(X_train, y_train)<br/>
     sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
     sig_clf.fit(X_train, y_train)<br/>
     sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
     cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-  print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/></a>
+  print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
 </tab>
 <br/>
 
