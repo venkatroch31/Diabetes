@@ -114,7 +114,7 @@ ul {
     matplotlib, to find the data distribution of the features.
 
   </p>
-  <center><a>df = diabetes.hist(figsize=(12,10))</a></center>
+  <a>df = diabetes.hist(figsize=(12,10))</a>
   
 <center>
   <img src="vis.png" alt=" "> </center>
@@ -164,10 +164,19 @@ ul {
     into features and the response that we are going to predict. We will assign the features to the X variable and the
     response to the y variable.
   </p>
+  <a>
+    X = diabetes.drop(diabetes.columns[8:],axis=1)<br/>
+    y = diabetes['Outcome']
+  </a>
   <h2>Train, CV and Test Datasets</h2>
   <p>
     Split the dataset randomly into three parts train, cross validation and test with 64%,16%, 20% of data respectively
-  </p>
+    </p>
+  <a>
+    from sklearn.model_selection import train_test_split<br/>
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)<br/>
+    X_train, X_cv, y_train, y_cv = train_test_split(X_train, y_train, test_size=0.2)
+  </a>
   <h2>Machine Learning Models</h2>
    <p>The Log Loss metric takes into account the probabilities underlying your models, and 
     not only the final output of the classification. The bolder the probabilities, the better
