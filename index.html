@@ -307,6 +307,37 @@ For values of best alpha =  15 The test log loss is: 0.4740508957786449
   Naive Bayes is one of the classification algorithms. Multinomial Naive Bayes classifier is 
   a specific instance of a Naive Bayes classifier which uses a multinomial distribution for each of the features.
 </p>
+	<a>
+		alpha = [0.00001, 0.0001, 0.001, 0.1, 1, 10, 100,1000] <br/>
+max_depth = [5, 10]<br/>
+cv_log_error_array = []<br/>
+for i in alpha:<br/>
+   <tab> for j in max_depth:<br/>
+        	<tab>print("for alpha =", i)<br/>
+        	clf = MultinomialNB(alpha=i)<br/> 
+        	clf.fit(X_train, y_train)<br/>
+        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
+        	sig_clf.fit(X_train, y_train)<br/>
+        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
+        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
+        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
+        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
+	</tab>
+</tab>
+fig, ax = plt.subplots()<br/>
+ax.plot(alpha, cv_log_error_array,c='g')<br/>
+for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
+<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
+plt.grid()<br/>
+plt.title("Cross Validation Error for each alpha")<br/>
+plt.xlabel("Alpha i's")<br/>
+plt.ylabel("Error measure")<br/>
+plt.show()<br/>
+
+	</a>
+	<br/>
+	<br/>
+	<center><img src="n.PNG" alt=" "> </center><br/>
   <a>
  best_alpha = np.argmin(cv_log_error_array)<br/>
 clf = MultinomialNB(alpha=alpha[best_alpha])<br/>
@@ -326,6 +357,9 @@ plot_confusion_matrix(y_test, predicted_y)<br/>
 For values of best alpha =  1000 The cross validation log loss is: 0.6447167307015321<br/>
 For values of best alpha =  1000 The test log loss is: 0.610907026228638<br/>
   </p>
+	<br/>
+	<br/>
+	<center><img src="n2.PNG" alt=" "> </center><br/>
 <h2>Logistic Regresion</h2>
 <p>
   Logistic Regresion is one of the classification algorithms. the logistic regression is 
@@ -333,6 +367,36 @@ For values of best alpha =  1000 The test log loss is: 0.610907026228638<br/>
   relationship between one dependent binary variable and one or more nominal, ordinal, interval 
   or ratio-level independent variables.
 </p>
+	<a>
+		alpha = [10 ** x for x in range(-6, 3)] <br/>
+max_depth = [5, 10]<br/>
+cv_log_error_array = []<br/>
+for i in alpha:<br/>
+   <tab> for j in max_depth:<br/>
+        	<tab>print("for alpha =", i)<br/>
+        	clf = SGDClassifier(alpha=i, penalty='l2', loss='log', random_state=42)<br/> 
+        	clf.fit(X_train, y_train)<br/>
+        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
+        	sig_clf.fit(X_train, y_train)<br/>
+        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
+        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
+        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
+        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
+	</tab>
+</tab>
+fig, ax = plt.subplots()<br/>
+ax.plot(alpha, cv_log_error_array,c='g')<br/>
+for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
+<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
+plt.grid()<br/>
+plt.title("Cross Validation Error for each alpha")<br/>
+plt.xlabel("Alpha i's")<br/>
+plt.ylabel("Error measure")<br/>
+plt.show()<br/>
+	</a>
+	<br/>
+	<br/>
+	<center><img src="l.PNG" alt=" "> </center><br/>
   <a>
     best_alpha = np.argmin(cv_log_error_array)<br/>
 clf = SGDClassifier(alpha=alpha[best_alpha], penalty='l2', loss='log', random_state=42)<br/>
@@ -352,11 +416,42 @@ plot_confusion_matrix(y_test, predicted_y)<br/>
 For values of best alpha =  0.001 The cross validation log loss is: 0.6061400042217507<br/>
 For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
   </p>
+	<br/>
+	<br/>
+	<center><img src="l2.PNG" alt=" "> </center><br/>
   
 <h2>Linear SVM</h2>
 <p>
   Linear SVM is one of the most common classification algorithms.
 </p>
+	<a>
+		alpha = [10 ** x for x in range(-5, 2)] <br/>
+max_depth = [5, 10]<br/>
+cv_log_error_array = []<br/>
+for i in alpha:<br/>
+   <tab> for j in max_depth:<br/>
+        	<tab>print("for alpha =", i)<br/>
+        	clf = SGDClassifier(alpha=i, penalty='l2', loss='hinge', random_state=42)<br/> 
+        	clf.fit(X_train, y_train)<br/>
+        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
+        	sig_clf.fit(X_train, y_train)<br/>
+        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
+        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
+        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
+        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
+	</tab>
+</tab>
+fig, ax = plt.subplots()<br/>
+ax.plot(alpha, cv_log_error_array,c='g')<br/>
+for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
+<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
+plt.grid()<br/>
+plt.title("Cross Validation Error for each alpha")<br/>
+plt.xlabel("Alpha i's")<br/>
+plt.ylabel("Error measure")<br/>
+plt.show()<br/>
+<center><img src="s.PNG" alt=" "> </center><br/>
+	</a>
   <a>
     best_alpha = np.argmin(cv_log_error_array)<br/>
 clf = SGDClassifier(alpha=alpha[best_alpha], penalty='l2', loss='log', random_state=42)<br/>
@@ -376,13 +471,44 @@ plot_confusion_matrix(y_test, predicted_y)<br/>
 For values of best alpha =  0.001 The cross validation log loss is: 0.6061400042217507<br/>
 For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
   </p>
-  
+  <br/>
+	<br/>
+	<center><img src="s2.PNG" alt=" "> </center><br/>
 <h2>Random Forest</h2>
 <p>
   Random forests or random decision forests are an ensemble learning method for classification, 
   that operates by constructing a multitude of decision trees at training time and outputting the 
   class that is the mode of the classes or mean prediction of the individual trees.
 </p>
+	<a>
+		alpha = [100,200,500,1000,2000]<br/>
+max_depth = [5, 10]<br/>
+cv_log_error_array = []<br/>
+for i in alpha:<br/>
+   <tab> for j in max_depth:<br/>
+        	<tab>print("for alpha =", i)<br/>
+        	clf = RandomForestClassifier(n_estimators=i, criterion='gini', max_depth=j, random_state=42, n_jobs=-1)   <br/> 
+        	clf.fit(X_train, y_train)<br/>
+        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
+        	sig_clf.fit(X_train, y_train)<br/>
+        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
+        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
+        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
+        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
+	</tab>
+</tab>
+'''fig, ax = plt.subplots()<br/>
+ax.plot(alpha, cv_log_error_array,c='g')<br/>
+for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
+<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
+plt.grid()<br/>
+plt.title("Cross Validation Error for each alpha")<br/>
+plt.xlabel("Alpha i's")<br/>
+plt.ylabel("Error measure")<br/>
+plt.show()'''<br/>
+
+	</a>
+	<br/>
   <a>
     best_alpha = np.argmin(cv_log_error_array)<br/>
 clf = RandomForestClassifier(n_estimators=alpha[int(best_alpha/2)], criterion='gini', max_depth=max_depth[int(best_alpha%2)], random_state=42, n_jobs=-1)<br/>
@@ -402,7 +528,8 @@ plot_confusion_matrix(y_test, predicted_y)
 The cross validation log loss is: 0.5231746867910846<br/>
 The test log loss is: 0.40209809205433056<br/>
   </p>
-  
+	<br/><br/>
+  <center><img src="r2.PNG" alt=" "> </center><br/>
   
   
   
