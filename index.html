@@ -178,12 +178,41 @@ ul {
     X_train, X_cv, y_train, y_cv = train_test_split(X_train, y_train, test_size=0.2)
   </a>
   <h2>Machine Learning Models</h2>
+  <h2>Model Selection</h2>
+  <p>
+    Model selection or algorithm selection phase is the most exciting and the heart of machine learning. 
+    It is the phase where we select the model which performs best for the data set at hand.
+  </p>
+  <p>
+    We will import the necessary libraries to the notebook. We import 7 classifiers namely K-Nearest Neighbors, 
+    Support Vector Classifier, Logistic Regression, MultiNomial Naive Bayes, Random Forest and  XgBoost to be contenders 
+    for the best classifier.
+  </p>
+  <a>
+    from sklearn.neighbors import KNeighborsClassifier<br/>
+from sklearn.calibration import CalibratedClassifierCV<br/>
+from sklearn.naive_bayes import MultinomialNB<br/>
+from sklearn.ensemble import RandomForestClassifier<br/>
+from sklearn.linear_model import SGDClassifier<br/>
+from sklearn.linear_model import LogisticRegression<br/>
+from sklearn.linear_model import LogisticRegression
+
+  </a>
+  <h2>Evaluation Methods</h2>
    <p>The Log Loss metric takes into account the probabilities underlying your models, and 
     not only the final output of the classification. The bolder the probabilities, the better
     will be your Log Loss — closer to zero. It is a measure of uncertainty, so a low Log Loss 
     means a low uncertainty/entropy of your model. Log Loss is similar to the Accuracy, but it 
     will favor models that distinguish more strongly the classes. Log Loss it useful to compare 
      models not only on their output but on their probabilistic outcome.</p>
+  <a>
+    
+from sklearn.metrics import confusion_matrix<br/>
+from sklearn.metrics.classification import accuracy_score, log_loss<br/>
+from sklearn.metrics import precision_recall_curve, auc, roc_curve
+  </a>
+  
+  
   <h2>k-Nearest Neighbors</h2>
   <p>
     The k-NN algorithm is arguably the simplest machine learning algorithm. Building the model 
