@@ -223,6 +223,7 @@ from sklearn.metrics import precision_recall_curve, auc, roc_curve
     consists only of storing the training data set. To make a prediction for a new data point, 
     the algorithm finds the closest data points in the training data set — its "nearest neighbors"
   </p>
+  <center><img src="kk.PNG" alt=" "> </center><br/>
   <a>
  best_alpha = np.argmin(cv_log_error_array)<br/>
  clf = KNeighborsClassifier(n_neighbors=alpha[best_alpha])<br/>
