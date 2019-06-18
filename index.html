@@ -270,6 +270,37 @@ plt.show()
 For values of best alpha =  15 The cross validation log loss is: 0.5972448933083675<br/>
 For values of best alpha =  15 The test log loss is: 0.4740508957786449
   </p>
+  
+  <a>
+    def plot_confusion_matrix(test_y, predict_y):<br/>
+<tab>
+    C = confusion_matrix(test_y, predict_y) <br/>   
+    A =(((C.T)/(C.sum(axis=1))).T)    <br/>
+    B =(C/C.sum(axis=0))    <br/>
+    plt.figure(figsize=(20,4))    <br/>
+    labels = [1,2]<br/>
+    cmap=sns.light_palette("blue")<br/>
+    plt.subplot(1, 3, 1)<br/>
+    sns.heatmap(C, annot=True, cmap=cmap, fmt=".3f", xticklabels=labels, yticklabels=labels)<br/>
+    plt.xlabel('Predicted Class')<br/>
+    plt.ylabel('Original Class')<br/>
+    plt.title("Confusion matrix")<br/>
+    
+    plt.subplot(1, 3, 2)<br/>
+    sns.heatmap(B, annot=True, cmap=cmap, fmt=".3f", xticklabels=labels, yticklabels=labels)<br/>
+    plt.xlabel('Predicted Class')<br/>
+    plt.ylabel('Original Class')<br/>
+    plt.title("Precision matrix")<br/>
+    
+    plt.subplot(1, 3, 3)<br/>
+    sns.heatmap(A, annot=True, cmap=cmap, fmt=".3f", xticklabels=labels, yticklabels=labels)<br/>
+    plt.xlabel('Predicted Class')<br/>
+    plt.ylabel('Original Class')<br/>
+    plt.title("Recall matrix")<br/>    
+    plt.show()
+</tab>
+  </a>
+  
 <h2>Naive Bayes</h2>
 <p>
   Naive Bayes is one of the classification algorithms. Multinomial Naive Bayes classifier is 
