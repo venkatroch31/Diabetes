@@ -223,19 +223,19 @@ from sklearn.metrics import precision_recall_curve, auc, roc_curve
  alpha = [5, 11, 15, 21, 31, 41, 51, 99]<br/>
 cv_log_error_array = []<br/>
 for i in alpha:<br/>
-    <nbsp>print("for alpha =", i)<br/>
-    <nbsp>clf = KNeighborsClassifier(n_neighbors=i)<br/>
-    <nbsp>clf.fit(X_train, y_train)<br/>
-    <nbsp>sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-    <nbsp>sig_clf.fit(X_train, y_train)<br/>
-    <nbsp>sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
-    <nbsp>cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-    <nbsp># to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
-    <nbsp>print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
+    <tab>print("for alpha =", i)<br/>
+    clf = KNeighborsClassifier(n_neighbors=i)<br/>
+    clf.fit(X_train, y_train)<br/>
+    sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
+    sig_clf.fit(X_train, y_train)<br/>
+    sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
+    cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
+    # to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
+    print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
 fig, ax = plt.subplots()<br/>
 ax.plot(alpha, cv_log_error_array,c='g')<br/>
 for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-    <nbsp>ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))<br/>
+    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))<br/>
 plt.grid()<br/>
 plt.title("Cross Validation Error for each alpha")<br/>
 plt.xlabel("Alpha i's")<br/>
