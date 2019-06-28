@@ -180,16 +180,16 @@
 			<p>
 				Another option is to calculate the mean and the median value for a specific column and substitute that value everywhere (in the same column) we have zero or null. Let's see how to apply this second method.</p>
 			</p>
-			<div align="left" style="background-color:lightblue;style="overflow-y:hidden;overflow-x:scroll">
-					<code>
+			<div align="left" style="background-color:lightblue; style="overflow-y:hidden;overflow-x:scroll">
+				<code>
 					
-						diabetes_copy['Glucose'].fillna(diabetes_copy['Glucose'].mean(), inplace = True)</br>
-						diabetes_copy['BloodPressure'].fillna(diabetes_copy['BloodPressure'].mean(), inplace = True)</br>
-						diabetes_copy['SkinThickness'].fillna(diabetes_copy['SkinThickness'].median(), inplace = True)</br>
-						diabetes_copy['Insulin'].fillna(diabetes_copy['Insulin'].median(), inplace = True)</br>
-						diabetes_copy['BMI'].fillna(diabetes_copy['BMI'].median(), inplace = True)</br>
+					diabetes_copy['Glucose'].fillna(diabetes_copy['Glucose'].mean(), inplace = True)</br>
+					diabetes_copy['BloodPressure'].fillna(diabetes_copy['BloodPressure'].mean(), inplace = True)</br>
+					diabetes_copy['SkinThickness'].fillna(diabetes_copy['SkinThickness'].median(), inplace = True)</br>
+					diabetes_copy['Insulin'].fillna(diabetes_copy['Insulin'].median(), inplace = True)</br>
+					diabetes_copy['BMI'].fillna(diabetes_copy['BMI'].median(), inplace = True)</br>
 
-					</code>
+				</code>
 			</div>
 			
 			
