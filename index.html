@@ -126,13 +126,9 @@
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
-					diabetes_copy = diabetes.copy(deep = True)</br>
-					diabetes_copy[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']] = diabetes_copy[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']].replace(0,np.NaN)
-						</br>
-					
-					print(diabetes_copy.isnull().sum())</br>					
+					df = diabetes.hist(figsize=(12,10))</br>					
 
-					</code>
+				</code>
 			</div>
 			
 			
@@ -152,6 +148,17 @@
 					It is better to replace zeros with nan since after that counting them would be easier and zeros need to be replaced with suitable values
 					
 				</p>
+				<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+					<code>
+					
+						diabetes_copy = diabetes.copy(deep = True)</br>
+						diabetes_copy[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']] = diabetes_copy[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']].replace(0,np.NaN)
+						</br>
+					
+						print(diabetes_copy.isnull().sum())</br>					
+
+					</code>
+				</div>
 				
 				<div align="left" style="overflow-y:hidden;overflow-x:scroll">
 					<code>
@@ -180,7 +187,7 @@
 			<p>
 				Another option is to calculate the mean and the median value for a specific column and substitute that value everywhere (in the same column) we have zero or null. Let's see how to apply this second method.</p>
 			</p>
-			<div align="left" style="background-color:lightblue; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
 					diabetes_copy['Glucose'].fillna(diabetes_copy['Glucose'].mean(), inplace = True)</br>
