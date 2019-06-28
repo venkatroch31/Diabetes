@@ -1,596 +1,199 @@
 <html>
-  <head>
-    <style>
+	<head>
+		<style>
+			div {
+  			padding-top: 10px;
+  			padding-right:200px;
+  			padding-bottom: 50px;
+  			padding-left: 200px;  
+			align:left;
+			
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<center><img src="credit-card.jpg" /></center>
+		<div>
+			<h1><center>Pima Indian Diabetes</center></h1>
+			<h2>Introduction</h2>
+			<p>
+				The Pima are a group of Native Americans living in Arizona. A genetic predisposition allowed this group to survive normally to a diet poor of carbohydrates for years. In the recent years, because of a sudden shift from traditional agricultural crops to processed foods, together with a decline in physical activity, made them develop the highest prevalence of type 2 diabetes and for this reason they have been subject of many studies.
+			</p>
+			
+			<p>
+				Diabetes is a disease which occurs when the blood glucose level becomes high, which 
+       				ultimately leads to other health problems such as heart diseases, kidney disease etc. 
+       					Diabetes is caused mainly due to the consumption of highly processed food, bad 
+       					consumption habits etc. According to WHO, the number of people with diabetes has 
+       						been increased over the years. 
 
-p {
-  color: black;
-  font-family: verdana;
-  font-size: 100%;
-}
-ul {
-  color: black;
-  font-family: verdana;
-  font-size: 90%;
-}
-  div {
-  padding-top: 10px;
-  padding-right: 40px;
-  padding-bottom: 50px;
-  padding-left: 100px;
-}
-      
- a {
- 
-   background-color: lightgrey;
-}
-      tab {
-    display: inline-block; 
-    margin-left: 40px; 
-}
-</style>
-  </head>
-  
-  
-<body><div>
- 
-  </center>
-  <h1><center>Machine Learning for pima Indian Diabetes</center></h1>
- 
-  <h3>Introduction</h3>
-  <h4> What is Diabetes?</h4>
-  <p>  Diabetes is a disease which occurs when the blood glucose level becomes high, which 
-       ultimately leads to other health problems such as heart diseases, kidney disease etc. 
-       Diabetes is caused mainly due to the consumption of highly processed food, bad 
-       consumption habits etc. According to WHO, the number of people with diabetes has 
-       been increased over the years. 
-  </p>
-  <p>The Pima are a group of Native Americans living in Arizona. A genetic predisposition 
-    allowed this group to survive normally to a diet poor of carbohydrates for years. In the 
-    recent years, because of a sudden shift from traditional agricultural crops to processed 
-    foods, together with a decline in physical activity, made them develop the highest prevalence
-    of type 2 diabetes and for this reason they have been subject of many studies. 
-    
-    
-  </p>
-  <h3>Description </h3>
-  <p>
-    Source:https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pima-indians-diabetes-database.zip/1 </p>
-  <p>
-    Data Info:
-    When encountered with a data set, first we should analyse and "get to know" the data set. 
-    This step is necessary to familiarize with the data, to gain some understanding about the 
-    potential features and to see if data cleaning is needed.
-  </p>
-   <p>
-    Problem statement :
- 
-    The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, 
-    based on certain diagnostic measurements included in the dataset. 
-  </p>
-  
-  
-  
-  <h3>Prerequisites</h3>
-  <ul>
-         <li>Python 3</li>
-         <li>Anaconda (Scikit Learn, Numpy, Pandas, Matplotlib, Seaborn)</li>
-         <li>Jupyter Notebook</li>
-         <li>Basic understanding of supervised machine learning methods : specifically classification</li>
-      </ul>
+			</p>
+			<h2>Dataset</h2>
+			<p>
+				Download the dataset from<a href="https://www.kaggle.com/uciml/pima-indians-diabetes-database/downloads/pima-indians-diabetes-database.zip/1">kaggle</a> 
+			</p>
+			<p>
+				The dataset includes data from 768 women with 8 characteristics, in particular:
+				<ul>
+					<li>Pregnancies: Number of times pregnant</li>
+					<li>Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test</li>
+					<li>BloodPressure: Diastolic blood pressure (mm Hg)</li>
+					<li>SkinThickness: Triceps skin fold thickness (mm)</li>
+					<li>Insulin: 2-Hour serum insulin (mu U/ml)</li>
+					<li>BMI: Body mass index (weight in kg/(height in m)^2)</li>
+					<li>DiabetesPedigreeFunction: Diabetes pedigree function</li>
+					<li>Age: Age (years)</li>
+					<li>Outcome: Class variable (0 or 1)</li>
+					
+				</ul>
+				The last column 'Outcome' of the dataset indicates if the person has been diagnosed with diabetes (1) or not (0)
+			</p>
+			<h2>Problem</h2>
+			<p>
+				The type of dataset and problem is a classic supervised binary classification. Given a number of elements all with certain characteristics (features), we want to build a machine learning model to identify people affected by type 2 diabetes.
+			</p>
+			<p>
+				To solve the problem we will have to analyse the data, do any required transformation and normalisation, apply a machine learning algorithm, train a model, check the performance of the trained model and iterate with other algorithms until we find the most performant for our type of dataset.
+			</p>
+			<h2>Setup</h2>
+			
+			<p>
+				Import neceessary libraries. Let’s begin:
+			</p>
+		
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					import pandas as pd</br>
+					import matplotlib.pyplot as plt</br>
+					import re</br>
+					import numpy as np</br>
+					import seaborn as sns</br>
+					import time</br>
+					import warnings</br>
+					import sqlite3</br>
+					warnings.filterwarnings("ignore")</br>
+					from nltk.corpus import stopwords</br>
+					from sklearn.preprocessing import normalize</br>
+					from sklearn.feature_extraction.text import CountVectorizer</br>
+					from sklearn.manifold import TSNE</br>
+					from sklearn.neighbors import KNeighborsClassifier</br>
+					from sklearn.metrics import confusion_matrix</br>
+					from sklearn.metrics.classification import accuracy_score, log_loss</br>
+					from sklearn.svm import SVC</br>
+					from sklearn.calibration import CalibratedClassifierCV</br>
+					from sklearn.model_selection import train_test_split</br>
+					from sklearn.model_selection import GridSearchCV</br>
+					from sklearn.metrics import normalized_mutual_info_score</br>
+					from sklearn.ensemble import RandomForestClassifier</br>
+					from sklearn import metrics</br>
+					from nltk.stem.porter import PorterStemmer</br>
 
+				</code>
+			</div>
+			<h2>Load the dataset</h2>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					diabetes = pd.read_csv('diabetes.csv')</br>
+					print('\nFeatures : ', diabetes.columns.values)</br>
+					Features :  ['Pregnancies' 'Glucose' 'BloodPressure' 'SkinThickness' 'Insulin' 'BMI'
+ 						'DiabetesPedigreeFunction' 'Age' 'Outcome']</br>
+					
 
+				</code>
+			</div>
+			<h2>Data correlation matrix</h2>
+			<p>
+				The correlation matrix is an important tool to understand the correlation between the different characteristics. The values range from -1 to 1 and the closer a value is to 1 the bettere correlation there is between two characteristics. Let's calculate the correlation matrix for our dataset.
+			</p>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					plt.figure(figsize=(12,10))</br>
+					p=sns.heatmap(diabetes.corr(), annot=True,cmap ='RdYlGn')  </br>
+					
 
-<h3> Data Reading </h3>
-  <p>First import neceessary libraries. When encountered with a data set, first we should analyse and get to know the data set. To get some understanding about
-    the potential features and to see if data cleaning is needed.</p>
-  <a>
-    import pandas as pd<br/>
-    
-    import numpy as np<br/>
-    
-    import matplotlib.pyplot as plt<br/>
-    
-    import seaborn as sns<br/>
-    
-    diabetes = pd.read_csv('diabetes.csv')
-    </a>
-  
- <center><img src="22.PNG" alt=" "> </center>
-<p>
-  Outcome is the feature we are going to predict, 0 means no diabetes, 
-  1 means diabetes, these 768 data points, 500 are labeled as 0 and 268 as 1
-</p>
-  <a>sns.countplot(diabetes['Outcome'],label="Count") </a>
-<center><img src="vis0.png" alt=" "> </center>
-  <p>
-    Visualization of data is an imperative aspect of data science. It helps to understand data and also 
-    to explain the data to another person. Python has several interesting visualization libraries such as
-    Matplotlib, Seaborn etc.In this tutorial we will use pandas’ visualization which is built on top of 
-    matplotlib, to find the data distribution of the features.
+				</code>
+			</div>
+			<h2>Visualise the Data</h2>
+			<p>
+				Visualising the data is an important step of the data analysis. With a graphical visualisation of the data we have a better understanding of the various features values distribution: for example we can understand what's the average age of the people or the average BMI etc...
+			</p>
+			<center><img src=""/></center>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					diabetes_copy = diabetes.copy(deep = True)</br>
+					diabetes_copy[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']] = diabetes_copy[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']].replace(0,np.NaN)
+						</br>
+					
+					print(diabetes_copy.isnull().sum())</br>					
 
-  </p>
-  <a>df = diabetes.hist(figsize=(12,10))</a>
-  
-<center>
-  <img src="vis.png" alt=" "> </center>
-<ul>
-         <li>Pregnancies: Number of times pregnant</li>
-         <li>Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test</li>
-         <li>BloodPressure: Diastolic blood pressure (mm Hg)</li>
-         <li>SkinThickness: Triceps skin fold thickness (mm)</li>
-          <li>Insulin: 2-Hour serum insulin (mu U/ml)</li>
-          <li>BMI: Body mass index (weight in kg/(height in m)^2)</li>
-          <li>DiabetesPedigreeFunction: Diabetes pedigree function</li>
-          <li>Age: Age (years)</li>
-          <li>Outcome: Class variable (0 or 1)</li>
-      </ul>
-  <h3>Preprocessing of Data</h3>
-  <p>
-    Considered to be one of the crucial steps of the work flow, because it can make or break the model. 
-    There is a saying in machine learning Better data beats fancier algorithms, which suggests better 
-    data gives you better resulting models.
-    There are several factors to consider in the data cleaning process:
-     <ul>
-         <li>Duplicate or irrelevant observations.</li>
-         <li>Bad labeling of data, same category occurring multiple times.</li>
-         <li>Missing or null data points.</li>
-         
-      </ul>
+					</code>
+			</div>
+			
+			
+				<p>
+					Following columns or variables have an invalid zero value:
+					<ul>
+						<li>Glucose</li>
+						<li>BloodPressure</li>
+						<li>SkinThickness</li>
+						<li>Insulin</li>
+						<li>BMI</li>
+					</ul>
+					
+				</p>
+				<p>
+					
+					It is better to replace zeros with nan since after that counting them would be easier and zeros need to be replaced with suitable values
+					
+				</p>
+				
+				<div align="left" style="overflow-y:hidden;overflow-x:scroll">
+					<code>
+					
+						Pregnancies                   0</br>
+						Glucose                       5</br>					
+						BloodPressure                35</br>
+						SkinThickness               227</br>
+						Insulin                     374</br>
+						BMI                          11</br>
+						DiabetesPedigreeFunction      0</br>
+						Age                           0</br>
+						Outcome                       0</br>
+						dtype: int64
 
-    
-  </p>
-  
-  <h3>Feature Engineering </h3>
-  <p>
-    Feature engineering is the process of transforming the gathered data into features that better represent the 
-    problem that we are trying to solve to the model, to improve its performance and accuracy.Feature engineering
-    create more input features from the existing features and also combine several features to produce more intuitive 
-    features to feed to the model.
-  </p>
-  <p>
-    The domain of the problem we are trying to tackle requires lots of related features. Since the data set is already 
-    provided, and by examining the data we can’t further create or dismiss any data at this point. In the data set we 
-    have the following 8 features.
+					</code>
+				</div>
 
-    (Pregnancies, Glucose, Blood Pressure, Skin Thickness, Insulin, BMI, Diabetes Pedigree Function, Age)
+			<h2>Data cleaning and transformation</h2>
+			<p>
+				We have noticed from the previous analysis that some patients have missing data for some of the features. Machine learning algorithms don't work very well when the data is missing so we have to find a solution to "clean" the data we have.
+			</p>
+			<p>
+				The easiest option could be to eliminate all those patients with null/zero values, but in this way we would eliminate a lot of important data.
+			</p>
+			<p>
+				Another option is to calculate the mean and the median value for a specific column and substitute that value everywhere (in the same column) we have zero or null. Let's see how to apply this second method.</p>
+			</p>
+			<div align="left" style="overflow-y:hidden;overflow-x:scroll">
+					<code>
+					
+						diabetes_copy['Glucose'].fillna(diabetes_copy['Glucose'].mean(), inplace = True)</br>
+						diabetes_copy['BloodPressure'].fillna(diabetes_copy['BloodPressure'].mean(), inplace = True)</br>
+						diabetes_copy['SkinThickness'].fillna(diabetes_copy['SkinThickness'].median(), inplace = True)</br>
+						diabetes_copy['Insulin'].fillna(diabetes_copy['Insulin'].median(), inplace = True)</br>
+						diabetes_copy['BMI'].fillna(diabetes_copy['BMI'].median(), inplace = True)</br>
 
-    By the observation we can say that the 'Skin Thickness' is not an indicator of diabetes. But we can not deny the 
-    fact that it is unusable at this point. Therefore we will use all the features available. We separate the data set 
-    into features and the response that we are going to predict. We will assign the features to the X variable and the
-    response to the y variable.
-  </p>
-  <a>
-    X = diabetes.drop(diabetes.columns[8:],axis=1)<br/>
-    y = diabetes['Outcome']
-  </a>
-  <h3>Train, CV and Test Datasets</h3>
-  <p>
-    Split the dataset randomly into three parts train, cross validation and test with 64%,16%, 20% of data respectively
-    </p>
-  <a>
-    from sklearn.model_selection import train_test_split<br/>
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)<br/>
-    X_train, X_cv, y_train, y_cv = train_test_split(X_train, y_train, test_size=0.2)
-  </a>
-  <h2>Machine Learning Models</h2>
-  <h3>Model Selection</h3>
-  <p>
-    Model selection or algorithm selection phase is the most exciting and the heart of machine learning. 
-    It is the phase where we select the model which performs best for the data set at hand.
-  </p>
-  <p>
-    We will import the necessary libraries to the notebook. We import 7 classifiers namely K-Nearest Neighbors, 
-    Support Vector Classifier, Logistic Regression, MultiNomial Naive Bayes, Random Forest and  XgBoost to be contenders 
-    for the best classifier.
-  </p>
-  <a>
-    from sklearn.neighbors import KNeighborsClassifier<br/>
-from sklearn.calibration import CalibratedClassifierCV<br/>
-from sklearn.naive_bayes import MultinomialNB<br/>
-from sklearn.ensemble import RandomForestClassifier<br/>
-from sklearn.linear_model import SGDClassifier<br/>
-from sklearn.linear_model import LogisticRegression<br/>
-from sklearn.linear_model import LogisticRegression
-
-  </a>
-  <h3>Evaluation Methods</h3>
-   <p>The Log Loss metric takes into account the probabilities underlying your models, and 
-    not only the final output of the classification. The bolder the probabilities, the better
-    will be your Log Loss — closer to zero. It is a measure of uncertainty, so a low Log Loss 
-    means a low uncertainty/entropy of your model. Log Loss is similar to the Accuracy, but it 
-    will favor models that distinguish more strongly the classes. Log Loss it useful to compare 
-     models not only on their output but on their probabilistic outcome.</p>
-  <a>
-    
-from sklearn.metrics import confusion_matrix<br/>
-from sklearn.metrics.classification import accuracy_score, log_loss<br/>
-from sklearn.metrics import precision_recall_curve, auc, roc_curve
-  </a>
-  
-  
-  <h3>k-Nearest Neighbors</h3>
-  <p>
-    The k-NN algorithm is arguably the simplest machine learning algorithm. Building the model 
-    consists only of storing the training data set. To make a prediction for a new data point, 
-    the algorithm finds the closest data points in the training data set — its "nearest neighbors"
-  </p>
-  <a>
-    def plot_confusion_matrix(test_y, predict_y):<br/>
-<tab>
-    C = confusion_matrix(test_y, predict_y) <br/>   
-    A =(((C.T)/(C.sum(axis=1))).T)    <br/>
-    B =(C/C.sum(axis=0))    <br/>
-    plt.figure(figsize=(20,4))    <br/>
-    labels = [1,2]<br/>
-    cmap=sns.light_palette("blue")<br/>
-    plt.subplot(1, 3, 1)<br/>
-    sns.heatmap(C, annot=True, cmap=cmap, fmt=".3f", xticklabels=labels, yticklabels=labels)<br/>
-    plt.xlabel('Predicted Class')<br/>
-    plt.ylabel('Original Class')<br/>
-    plt.title("Confusion matrix")<br/>
-    
-    plt.subplot(1, 3, 2)<br/>
-    sns.heatmap(B, annot=True, cmap=cmap, fmt=".3f", xticklabels=labels, yticklabels=labels)<br/>
-    plt.xlabel('Predicted Class')<br/>
-    plt.ylabel('Original Class')<br/>
-    plt.title("Precision matrix")<br/>
-    
-    plt.subplot(1, 3, 3)<br/>
-    sns.heatmap(A, annot=True, cmap=cmap, fmt=".3f", xticklabels=labels, yticklabels=labels)<br/>
-    plt.xlabel('Predicted Class')<br/>
-    plt.ylabel('Original Class')<br/>
-    plt.title("Recall matrix")<br/>    
-    plt.show()
-</tab>
-  </a><br/><br/><br/>
-	<h4> Hyper parameter tunning:</h4>
-<a>  
-  alpha = [5, 11, 15, 21, 31, 41, 51, 99]<br/>
-cv_log_error_array = []<br/>
-for i in alpha:<br/>
-<tab>
-    clf = KNeighborsClassifier(n_neighbors=i)<br/>
-    clf.fit(X_train, y_train)<br/>
-    sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-    sig_clf.fit(X_train, y_train)<br/>
-    sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
-    cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-  print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
-</tab>
-<br/>
-
-fig, ax = plt.subplots()<br/>
-ax.plot(alpha, cv_log_error_array,c='g')<br/>
-for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-    <tab>ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i])) </tab><br/>
-plt.grid()<br/>
-plt.title("Cross Validation Error for each alpha")<br/>
-plt.xlabel("Alpha i's")<br/>
-plt.ylabel("Error measure")<br/>
-plt.show()
-  </a>
-  <center><img src="kk.PNG" alt=" "> </center><br/>
-  <a>
- best_alpha = np.argmin(cv_log_error_array)<br/>
- clf = KNeighborsClassifier(n_neighbors=alpha[best_alpha])<br/>
- clf.fit(X_train, y_train)<br/>
- sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
- sig_clf.fit(X_train, y_train)<br/>   
- predict_y = sig_clf.predict_proba(X_train)<br/>
- print('For values of best alpha = ', alpha[best_alpha], "The train log loss is:",log_loss(y_train, predict_y, labels=clf.classes_, eps=1e-15))<br/>
- predict_y = sig_clf.predict_proba(X_cv)<br/>
- print('For values of best alpha = ', alpha[best_alpha], "The cross validation log loss is:",log_loss(y_cv, predict_y, labels=clf.classes_, eps=1e-15))<br/>
- predict_y = sig_clf.predict_proba(X_test)<br/>
- print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
- plot_confusion_matrix(y_test, predicted_y)<br/>
-
-  </a>
-  
-  <p>
-    For values of best alpha =  15 The train log loss is: 0.482811625102604<br/>
-For values of best alpha =  15 The cross validation log loss is: 0.5972448933083675<br/>
-For values of best alpha =  15 The test log loss is: 0.4740508957786449
-  </p><br/>
-  <center><img src="kk2.PNG" alt=" " width="1000"> </center><br/>
-  
-  
-<h3>Naive Bayes</h3>
-<p>
-  Naive Bayes is one of the classification algorithms. Multinomial Naive Bayes classifier is 
-  a specific instance of a Naive Bayes classifier which uses a multinomial distribution for each of the features.
-</p>
-	<h4> Hyper parameter tunning:</h4>
-	<a>
-		alpha = [0.00001, 0.0001, 0.001, 0.1, 1, 10, 100,1000] <br/>
-max_depth = [5, 10]<br/>
-cv_log_error_array = []<br/>
-for i in alpha:<br/>
-   <tab> for j in max_depth:<br/>
-        	<tab>print("for alpha =", i)<br/>
-        	clf = MultinomialNB(alpha=i)<br/> 
-        	clf.fit(X_train, y_train)<br/>
-        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-        	sig_clf.fit(X_train, y_train)<br/>
-        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
-        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
-        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
-	</tab>
-</tab>
-fig, ax = plt.subplots()<br/>
-ax.plot(alpha, cv_log_error_array,c='g')<br/>
-for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
-plt.grid()<br/>
-plt.title("Cross Validation Error for each alpha")<br/>
-plt.xlabel("Alpha i's")<br/>
-plt.ylabel("Error measure")<br/>
-plt.show()<br/>
-
-	</a>
-	<br/>
-	<br/>
-	<center><img src="n.PNG" alt=" "> </center><br/>
-  <a>
- best_alpha = np.argmin(cv_log_error_array)<br/>
-clf = MultinomialNB(alpha=alpha[best_alpha])<br/>
-clf.fit(X_train, y_train)<br/>
-sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-sig_clf.fit(X_train, y_train)<br/>
-predict_y = sig_clf.predict_proba(X_train)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The train log loss is:",log_loss(y_train, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_cv)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The cross validation log loss is:",log_loss(y_cv, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_test)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-plot_confusion_matrix(y_test, predicted_y)<br/>
-  </a>
-  <p>
-    For values of best alpha =  1000 The train log loss is: 0.637257119193431<br/>
-For values of best alpha =  1000 The cross validation log loss is: 0.6447167307015321<br/>
-For values of best alpha =  1000 The test log loss is: 0.610907026228638<br/>
-  </p>
-	<br/>
-	<br/>
-	<center><img src="n2.PNG" alt=" " width="1000"> </center><br/>
-<h3>Logistic Regresion</h3>
-<p>
-  Logistic Regresion is one of the classification algorithms. the logistic regression is 
-  a predictive analysis. Logistic regression is used to describe data and to explain the 
-  relationship between one dependent binary variable and one or more nominal, ordinal, interval 
-  or ratio-level independent variables.
-</p>
-	<h4> Hyper parameter tunning:</h4>
-	<a>
-		alpha = [10 ** x for x in range(-6, 3)] <br/>
-max_depth = [5, 10]<br/>
-cv_log_error_array = []<br/>
-for i in alpha:<br/>
-   <tab> for j in max_depth:<br/>
-        	<tab>print("for alpha =", i)<br/>
-        	clf = SGDClassifier(alpha=i, penalty='l2', loss='log', random_state=42)<br/> 
-        	clf.fit(X_train, y_train)<br/>
-        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-        	sig_clf.fit(X_train, y_train)<br/>
-        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
-        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
-        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
-	</tab>
-</tab>
-fig, ax = plt.subplots()<br/>
-ax.plot(alpha, cv_log_error_array,c='g')<br/>
-for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
-plt.grid()<br/>
-plt.title("Cross Validation Error for each alpha")<br/>
-plt.xlabel("Alpha i's")<br/>
-plt.ylabel("Error measure")<br/>
-plt.show()<br/>
-	</a>
-	<br/>
-	<br/>
-	<center><img src="l.PNG" alt=" "> </center><br/>
-  <a>
-    best_alpha = np.argmin(cv_log_error_array)<br/>
-clf = SGDClassifier(alpha=alpha[best_alpha], penalty='l2', loss='log', random_state=42)<br/>
-clf.fit(X_train, y_train)<br/>
-sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-sig_clf.fit(X_train, y_train)<br/>
-predict_y = sig_clf.predict_proba(X_train)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The train log loss is:",log_loss(y_train, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_cv)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The cross validation log loss is:",log_loss(y_cv, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_test)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-plot_confusion_matrix(y_test, predicted_y)<br/>
-  </a>
-  <p>
-    For values of best alpha =  0.001 The train log loss is: 0.5556489329065055<br/>
-For values of best alpha =  0.001 The cross validation log loss is: 0.6061400042217507<br/>
-For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
-  </p>
-	<br/>
-	<br/>
-	<center><img src="l2.PNG" alt=" " width="1000"> </center><br/>
-  
-<h3>Linear SVM</h3>
-<p>
-  Linear SVM is one of the most common classification algorithms.
-</p>
-	<h4> Hyper parameter tunning:</h4>
-	<a>
-		alpha = [10 ** x for x in range(-5, 2)] <br/>
-max_depth = [5, 10]<br/>
-cv_log_error_array = []<br/>
-for i in alpha:<br/>
-   <tab> for j in max_depth:<br/>
-        	<tab>print("for alpha =", i)<br/>
-        	clf = SGDClassifier(alpha=i, penalty='l2', loss='hinge', random_state=42)<br/> 
-        	clf.fit(X_train, y_train)<br/>
-        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-        	sig_clf.fit(X_train, y_train)<br/>
-        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
-        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
-        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
-	</tab>
-</tab>
-fig, ax = plt.subplots()<br/>
-ax.plot(alpha, cv_log_error_array,c='g')<br/>
-for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
-plt.grid()<br/>
-plt.title("Cross Validation Error for each alpha")<br/>
-plt.xlabel("Alpha i's")<br/>
-plt.ylabel("Error measure")<br/>
-plt.show()<br/>
-<center><img src="s.PNG" alt=" "> </center><br/>
-	</a>
-  <a>
-    best_alpha = np.argmin(cv_log_error_array)<br/>
-clf = SGDClassifier(alpha=alpha[best_alpha], penalty='l2', loss='log', random_state=42)<br/>
-clf.fit(X_train, y_train)<br/>
-sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-sig_clf.fit(X_train, y_train)<br/>
-predict_y = sig_clf.predict_proba(X_train)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The train log loss is:",log_loss(y_train, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_cv)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The cross validation log loss is:",log_loss(y_cv, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_test)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-plot_confusion_matrix(y_test, predicted_y)<br/>
-  </a>
-  <p>
-    For values of best alpha =  0.001 The train log loss is: 0.5556489329065055<br/>
-For values of best alpha =  0.001 The cross validation log loss is: 0.6061400042217507<br/>
-For values of best alpha =  0.001 The test log loss is: 0.532801734380476<br/>
-  </p>
-  <br/>
-	<br/>
-	<center><img src="s2.PNG" alt=" " width="1000"> </center><br/>
-<h3>Random Forest</h3>
-<p>
-  Random forests or random decision forests are an ensemble learning method for classification, 
-  that operates by constructing a multitude of decision trees at training time and outputting the 
-  class that is the mode of the classes or mean prediction of the individual trees.
-</p>
-	<h4> Hyper parameter tunning:</h4>
-	<a>
-		alpha = [100,200,500,1000,2000]<br/>
-max_depth = [5, 10]<br/>
-cv_log_error_array = []<br/>
-for i in alpha:<br/>
-   <tab> for j in max_depth:<br/>
-        	<tab>print("for alpha =", i)<br/>
-        	clf = RandomForestClassifier(n_estimators=i, criterion='gini', max_depth=j, random_state=42, n_jobs=-1)   <br/> 
-        	clf.fit(X_train, y_train)<br/>
-        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-        	sig_clf.fit(X_train, y_train)<br/>
-        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
-        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
-        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
-	</tab>
-</tab>
-'''fig, ax = plt.subplots()<br/>
-ax.plot(alpha, cv_log_error_array,c='g')<br/>
-for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
-plt.grid()<br/>
-plt.title("Cross Validation Error for each alpha")<br/>
-plt.xlabel("Alpha i's")<br/>
-plt.ylabel("Error measure")<br/>
-plt.show()'''<br/>
-
-	</a>
-	<br/>
-  <a>
-    best_alpha = np.argmin(cv_log_error_array)<br/>
-clf = RandomForestClassifier(n_estimators=alpha[int(best_alpha/2)], criterion='gini', max_depth=max_depth[int(best_alpha%2)], random_state=42, n_jobs=-1)<br/>
-clf.fit(X_train, y_train)<br/>
-sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-sig_clf.fit(X_train, y_train)<br/>
-predict_y = sig_clf.predict_proba(X_train)<br/>
-print( "The train log loss is:",log_loss(y_train, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_cv)<br/>
-print( "The cross validation log loss is:",log_loss(y_cv, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_test)<br/>
-print( "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-plot_confusion_matrix(y_test, predicted_y)
-  </a>
-  <p>
-    The train log loss is: 0.3527041701902388<br/>
-The cross validation log loss is: 0.5231746867910846<br/>
-The test log loss is: 0.40209809205433056<br/>
-  </p>
-	<br/><br/>
-  <center><img src="r2.PNG" alt=" " width="1000"> </center><br/>
-  
-  
-  
-<h3>XgBoost</h3>
-<p>
-  XgBoost is one of the classification algorithms.
-</p>
-	<h4> Hyper parameter tunning:</h4>
-  <a>
-    alpha = [100,200,500,1000,2000]<br/>
-max_depth = [5, 10]<br/>
-cv_log_error_array = []<br/>
-for i in alpha:<br/>
-   <tab> for j in max_depth:<br/>
-        	<tab>print("for alpha =", i)<br/>
-        	clf = XGBClassifier(n_estimators=i,  max_depth=j, random_state=42, n_jobs=-1)   <br/> 
-        	clf.fit(X_train, y_train)<br/>
-        	sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-        	sig_clf.fit(X_train, y_train)<br/>
-        	sig_clf_probs = sig_clf.predict_proba(X_cv)<br/>
-        	cv_log_error_array.append(log_loss(y_cv, sig_clf_probs, labels=clf.classes_, eps=1e-15))<br/>
-        	# to avoid rounding error while multiplying probabilites we use log-probability estimates<br/>
-        	print("Log Loss :",log_loss(y_cv, sig_clf_probs)) <br/>
-	</tab><br/>
-</tab>
-	  <br/>
-'''fig, ax = plt.subplots()<br/>
-ax.plot(alpha, cv_log_error_array,c='g')<br/>
-for i, txt in enumerate(np.round(cv_log_error_array,3)):<br/>
-<tab>    ax.annotate((alpha[i],str(txt)), (alpha[i],cv_log_error_array[i]))</tab><br/>
-plt.grid()<br/>
-plt.title("Cross Validation Error for each alpha")<br/>
-plt.xlabel("Alpha i's")<br/>
-plt.ylabel("Error measure")<br/>
-plt.show()'''<br/>
-
-  </a>
-  <a>
-    best_alpha = np.argmin(cv_log_error_array)<br/>
-clf = XGBClassifier(n_estimators=alpha[int(best_alpha/2)], max_depth=max_depth[int(best_alpha%2)], random_state=42, n_jobs=-1)<br/>
-clf.fit(X_train, y_train)<br/>
-sig_clf = CalibratedClassifierCV(clf, method="sigmoid")<br/>
-sig_clf.fit(X_train, y_train)<br/>
-predict_y = sig_clf.predict_proba(X_train)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The train log loss is:",log_loss(y_train, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_cv)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The cross validation log loss is:",log_loss(y_cv, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-predict_y = sig_clf.predict_proba(X_test)<br/>
-print('For values of best alpha = ', alpha[best_alpha], "The test log loss is:",log_loss(y_test, predict_y, labels=clf.classes_, eps=1e-15))<br/>
-plot_confusion_matrix(y_test, predicted_y)<br/>
-  </a>
-  <p>
-    For values of best alpha =  100 The train log loss is: 0.3185430061919336<br/>
-For values of best alpha =  100 The cross validation log loss is: 0.5463100624120667<br/>
-For values of best alpha =  100 The test log loss is: 0.4462113287581887
-  </p>
-	<center><img src="x2.PNG" alt=" " width="1000"> </center><br/>
-  <h3>Summary</h3>
-  <p>
-    we discussed about the basic machine learning workflow steps such as data loading, data cleaning, 
-    feature engineering basics and also model selection, hyper parameter tuning and evaluation metrics using Scikit Learn library.
-  </p>
-  <p>
-    By comparing all the models <strong>Random Forest Classifier </strong> gives the best results(0.40 log loss).
-  </p>
-  </div>
-</body>
+					</code>
+			</div>
+			
+			
+			
+		</div>
+	</body>
 </html>
