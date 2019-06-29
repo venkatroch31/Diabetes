@@ -128,7 +128,9 @@
 			
 				<center><img src="2.PNG" /></center>
 			
-			
+				<p>
+					An important thing I notice in the dataset is the fact that some people have null (zero) values for some of the features: it's not quite possible to have 0 as BMI or for the blood pressure.
+				</p>
 			
 				<p>
 					The following columns or variables have an invalid zero value:
@@ -183,7 +185,7 @@
 				The easiest option could be to eliminate all those patients with null/zero values, but in this way we would eliminate a lot of important data.
 			</p>
 			<p>
-				Another option is to calculate the mean and the median value for a specific column and substitute that value everywhere (in the same column) we have zero or null. Let's see how to apply this second method.</p>
+				Another option is to calculate the median value for a specific column and substitute that value everywhere (in the same column) we have zero or null. Let's see how to apply this second method.</p>
 			</p>
 			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -215,7 +217,7 @@
 			</div>
 			<h2>Splitting the data in train, test and cross validation</h2>
 			<p>
-				<strong>Train Test Split:</strong> To have unknown datapoints to test the data rather than testing with the same points with which the model was trained. This helps capture the model performance much better.
+				Now that we have transformed the data we need to split the dataset in two parts: a training dataset and a test dataset. Splitting the dataset is a very important step for supervised machine learning models. Basically we are going to use the first part to train the model (ignoring the column with the pre assigned label), then we use the trained model to make predictions on new data (which is the test dataset, not part of the training set) and compare the predicted value with the pre assigned label.
 			</p>
 			<p>
 				<strong>Cross Validation:</strong>  When model is split into training and testing it can be possible that specific type of data point may go entirely into either training or testing portion. This would lead the model to perform poorly. Hence over-fitting and underfitting problems can be well avoided with cross validation techniques
