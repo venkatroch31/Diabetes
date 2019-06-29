@@ -193,8 +193,8 @@
 			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
-					diabetes_copy['Glucose'].fillna(diabetes_copy['Glucose'].mean(), inplace = True)</br>
-					diabetes_copy['BloodPressure'].fillna(diabetes_copy['BloodPressure'].mean(), inplace = True)</br>
+					diabetes_copy['Glucose'].fillna(diabetes_copy['Glucose'].median(), inplace = True)</br>
+					diabetes_copy['BloodPressure'].fillna(diabetes_copy['BloodPressure'].median(), inplace = True)</br>
 					diabetes_copy['SkinThickness'].fillna(diabetes_copy['SkinThickness'].median(), inplace = True)</br>
 					diabetes_copy['Insulin'].fillna(diabetes_copy['Insulin'].median(), inplace = True)</br>
 					diabetes_copy['BMI'].fillna(diabetes_copy['BMI'].median(), inplace = True)</br>
@@ -296,7 +296,7 @@
 					XGB: 0.760471 (0.052592)<br/>
 				</code>
 			</div>
-			div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					
 					
@@ -317,7 +317,7 @@
 			</p>
 			
 		
-			div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>				
 					param_grid = {'C': [0.01, 0.1, 1.0, 10.0, 50.0],'kernel': ['linear']}<br/>
 					model_svc = SVC()<br/>
@@ -328,7 +328,7 @@
 					
 				</code>
 			</div>
-			div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>				
 					# Print the bext score found and best_estimator<br/>
 					print("Best score: %0.2f%%" % (100*grid_search.best_score_))<br/>
@@ -338,7 +338,7 @@
 					
 				</code>
 			</div>
-			div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>				
 					Best score: 77.36%<br/>
 					Best estimator for parameter C: 0.010000<br/>				
@@ -347,7 +347,7 @@
 				</code>
 			</div>
 			<h2>Apply the parameters to the model and train it</h2>
-			div align="left" style="background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>				
 					# Create an instance of the algorithm using parameters<br/>
 					# from best_estimator_ property<br/>
@@ -364,7 +364,7 @@
 				</code>
 			</div>
 
-			div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>				
 					
 					SVC(C=0.01, cache_size=200, class_weight=None, coef0=0.0,<br/>
@@ -376,7 +376,7 @@
 				</code>
 			</div>
 			<h2>Make a Prediction</h2>
-			div align="left" style="background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>				
 					
 					
@@ -392,7 +392,7 @@
 					
 				</code>
 			</div><br/>
-			div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>				
 					
 					
