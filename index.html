@@ -101,12 +101,7 @@
 
 
 
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[86]:</div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -198,12 +193,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
 
 
 
@@ -326,9 +316,9 @@
 					y = diabetes_copy.Outcome</br>
 				</code>
 			</div>
-			<h2>Splitting the data in train, test and cross validation</h2>
+			<h2>Splitting the data </h2>
 			<p>
-				Now that we have transformed the data we need to split the dataset in two parts: a training dataset and a test dataset. Splitting the dataset is a very important step for supervised machine learning models. Basically we are going to use the first part to train the model (ignoring the column with the pre assigned label), then we use the trained model to make predictions on new data (which is the test dataset, not part of the training set) and compare the predicted value with the pre assigned label.
+				We transformed the data then we need to split the dataset in two , then we use the trained model to make predictions on new data (which is the test dataset, not part of the training set) and compare the predicted value with the pre assigned label.
 			</p>
 			<p>
 				<strong>Cross Validation:</strong>  When model is split into training and testing it can be possible that specific type of data point may go entirely into either training or testing portion. This would lead the model to perform poorly. Hence over-fitting and underfitting problems can be well avoided with cross validation techniques
