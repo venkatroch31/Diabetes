@@ -269,19 +269,8 @@
     						print(msg)<br/>
 				</code>
 			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					
-					for name, model in models:<br/>
-   					 	kfold = model_selection.KFold(n_splits=10, random_state=seed)<br/>
-    						cv_results = model_selection.cross_val_score(model, X, Y, cv=kfold, scoring='accuracy')<br/>
-    						results.append(cv_results)<br/>
-    						names.append(name)<br/>
-    						msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())<br/>
-    						print(msg)<br/>
-				</code>
-			</div>
-			div align="left" style=" padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+			
+			<div align="left" style=" padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					
 					
