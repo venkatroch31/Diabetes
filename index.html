@@ -14,7 +14,7 @@
 	</head>
 	
 	<body>
-		<center><img src="credit-card.jpg" /></center>
+		<center><img src="pima2.jpg" /></center>
 		<div>
 			<h1><center>Pima Indian Diabetes</center></h1>
 			<h2>Introduction</h2>
@@ -118,6 +118,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="1.jpg" /></center>
+			</div>
 			<h2>Visualise the Data</h2>
 			<p>
 				Visualising the data is an important step of the data analysis. With a graphical visualisation of the data we have a better understanding of the various features values distribution: for example we can understand what's the average age of the people or the average BMI etc...
@@ -129,6 +132,9 @@
 					df = diabetes.hist(figsize=(12,10))</br>					
 
 				</code>
+			</div>
+			<div>
+				<center><img src="2.jpg" /></center>
 			</div>
 			
 			
@@ -233,7 +239,9 @@
 				Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model. This is significant as the performance of the entire model is based on the hyper parameter values specified.
 			</p>
 			<h4> ROC Curve</h4>
-				<center><img src="roc_pima.jpg /></center>
+			<div>
+				<center><img src="1.PNG" /></center>
+			</div>
 			<p>
 				AUC ROC is one of the most important evaluation metrics for any classification model’s performance.
 			</p>
@@ -242,13 +250,17 @@
 				ROC (Receiver Operating Characteristic) Curve tells us about how good the model can distinguish between two things (e.g If a patient has a disease or no). Better models can accurately distinguish between the two. Whereas, a poor model will have difficulties in distinguishing between the two
 			</p>
 			<h4>Confusion Matrix</h4>
-				<center><img src="roc_pima.jpg /></center>
+			
 			<p>
 				A confusion matrix is a table that is often used to describe the performance of a classification model (or "classifier") on a set of test data for which the true values are known. The confusion matrix itself is relatively simple to understand, but the related terminology can be confusing. 
 			</p>
-			
-
-			
+			<div>
+				<center><img src="1.PNG" /></center>
+			</div>
+			<p>
+				It is extremely useful for measuring Recall, Precision, Specificity, Accuracy and most importantly AUC-ROC Curve. For clear understanding <a href="https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62" >con_mat</a>
+			</p>
+		
 			<p>
 				<strong>Precision:</strong>  Precision is the ratio of correctly predicted positive observations to the total predicted positive observations. The question that this metric answer is of all passengers that labeled as survived, how many actually survived? High precision relates to the low false positive rate. 
 			</p>
@@ -292,6 +304,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="k1.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
@@ -316,6 +331,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="k1.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
@@ -329,6 +347,9 @@
 					plt.show()<br/>		
 
 				</code>
+			</div>
+			<div>
+				<center><img src="k1.PNG" /></center>
 			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -386,6 +407,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="l1.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
@@ -410,6 +434,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="l2.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
@@ -423,6 +450,9 @@
 					plt.show()<br/>		
 
 				</code>
+			</div>
+			<div>
+				<center><img src="l3.PNG" /></center>
 			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -480,6 +510,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="s1.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					model = SSGDClassifier(alpha = opt_alpha,penalty='l2', loss='hinge', random_state=42)<br/>
@@ -503,6 +536,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="s2.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
@@ -516,6 +552,9 @@
 					plt.show()<br/>		
 
 				</code>
+			</div>
+			<div>
+				<center><img src="s3.PNG" /></center>
 			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -561,7 +600,6 @@
 					train_pred = model.cv_results_.get('mean_train_score')<br/>
 					cv_pred = model.cv_results_.get('mean_test_score')<br/>
 
-					#train_pred=train_pred.get('mean_train_score')<br/>
 					train_pred = train_pred.reshape(len(estimator), len(depth))<br/>
 					cv_pred = cv_pred.reshape(len(estimator), len(depth)) <br/>
 
@@ -592,6 +630,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="r2.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
@@ -605,6 +646,9 @@
 					plt.show()<br/>		
 
 				</code>
+			</div>
+			<div>
+				<center><img src="r3.PNG" /></center>
 			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -651,7 +695,6 @@
 					train_pred = model.cv_results_.get('mean_train_score')<br/>
 					cv_pred = model.cv_results_.get('mean_test_score')<br/>
 
-					#train_pred=train_pred.get('mean_train_score')<br/>
 					train_pred = train_pred.reshape(len(estimator), len(depth))<br/>
 					cv_pred = cv_pred.reshape(len(estimator), len(depth)) <br/>
 
@@ -682,6 +725,9 @@
 
 				</code>
 			</div>
+			<div>
+				<center><img src="x2.PNG" /></center>
+			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
@@ -695,6 +741,9 @@
 					plt.show()<br/>		
 
 				</code>
+			</div>
+			<div>
+				<center><img src="x3.PNG" /></center>
 			</div>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
