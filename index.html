@@ -90,14 +90,12 @@
 				<code>
 					
 					diabetes = pd.read_csv('diabetes.csv')</br>
-					print('\nFeatures : ', diabetes.columns.values)</br>
-					Features :  ['Pregnancies' 'Glucose' 'BloodPressure' 'SkinThickness' 'Insulin' 'BMI'
- 						'DiabetesPedigreeFunction' 'Age' 'Outcome']</br>
+					diabetes.head()</br>
 					
 
 				</code>
 			</div>
-
+				<center><img src="head.PNG" /></center>
 
 
 			<h2>Data correlation matrix</h2>
@@ -310,6 +308,7 @@
 					plt.show()<br/>
 				</code>
 			</div>
+			<center><img src="comp.PNG" /></center>
 			<h4>What is grid search?</h4>
 			<p>
 				Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model. This is significant as the performance of the entire model is based on the hyper parameter values specified.
