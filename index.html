@@ -292,7 +292,6 @@
 
 				</code>
 			</div>
-			<center><img src="roc_pima.jpg /></center>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
@@ -317,7 +316,6 @@
 
 				</code>
 			</div>
-			<center><img src="roc_pima.jpg /></center>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>					
 					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
@@ -332,7 +330,6 @@
 
 				</code>
 			</div>
-			<center><img src="roc_pima.jpg /></center>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
@@ -360,6 +357,194 @@
 
 				</code>
 			</div>
+			<h2>Logistic Regression</h2>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					alpha = [10 ** x for x in range(-6, 3)]<br/>
+
+					parameter = {'alpha':alpha}<br/>
+					clf = SGDClassifier(penalty='l2', loss='log', random_state=42)<br/>
+					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
+					model.fit(X_train,y_train)<br/>
+					opt_alpha = model.best_params_.get('alpha')<br/>
+   
+					train_pred = model.cv_results_.get('mean_train_score')<br/>
+					cv_pred = model.cv_results_.get('mean_test_score')<br/>
+					train_pred = train_pred.reshape(len(alpha))<br/>
+					cv_pred = cv_pred.reshape(len(alpha)) <br/>
+
+					plt.plot(alpha, train_pred, 'b', label = "Train AUC")<br/>
+					plt.plot(alpha, cv_pred, 'r', label = "cross val")<br/>
+
+					plt.legend()<br/>
+
+					plt.ylabel('AUC score')<br/>
+					plt.xlabel('alpha')<br/>
+					plt.show()<br/>
+					print("opt_alpha is : ", opt_alpha)<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					model = SGDClassifier(alpha = opt_alpha,penalty='l2', loss='log', random_state=42)<br/>
+					model.fit(X_train, y_train)<br/>
+					tra_pred = model.predict_proba(X_train)[:,1]<br/>
+					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
+					roc_auc = auc(fpr, tpr)<br/>
+
+					test_pred = model.predict_proba(X_test)[:,1]<br/>
+					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
+					roc_auc2 = auc(fpr2, tpr2)<br/>
+
+					plt.title('Receiver Operating Characteristic')<br/>
+					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
+					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
+					plt.legend(loc='lower right')<br/>
+					plt.plot([0,1],[0,1],'g--')<br/>
+					plt.ylabel('True Positive Rate')<br/>
+					plt.xlabel('False Positive Rate')<br/>
+					plt.show()<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
+					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
+					class_label = ['0', '1']<br/>
+					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
+					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
+					plt.title("Confusion Matrix")<br/>
+					plt.xlabel("Predicted")<br/>
+					plt.ylabel("Actual")<br/>
+					plt.show()<br/>		
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					from sklearn.metrics import classification_report<br/>
+					print("Classification Report: \n")<br/>
+					prediction = model.predict(X_test)<br/>
+					print(classification_report(y_test, prediction))<br/>	
+
+				</code>
+			</div>
+			<div align="left" style="bpadding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					Classification Report: <br/>
+
+              					precision    recall  f1-score   support<br/>
+
+           				0       0.73      0.94      0.82        97<br/>
+           				1       0.80      0.42      0.70        57<br/>
+
+    				 accuracy                           0.75       154<br/>
+   				macro avg       0.77      0.68      0.69       154<br/>
+			     weighted avg       0.76      0.75      0.72       154<br/>
+
+
+				</code>
+			</div>
+			<h2>Linear SVM</h2>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					alpha = [10 ** x for x in range(-5, 2)]<br/>
+
+					parameter = {'alpha':alpha}<br/>
+					clf = SGDClassifier(penalty='l2', loss='hinge', random_state=42)<br/>
+					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
+					model.fit(X_train,y_train)<br/>
+					opt_alpha = model.best_params_.get('alpha')<br/>
+   
+					train_pred = model.cv_results_.get('mean_train_score')<br/>
+					cv_pred = model.cv_results_.get('mean_test_score')<br/>
+					train_pred = train_pred.reshape(len(alpha))<br/>
+					cv_pred = cv_pred.reshape(len(alpha)) <br/>
+
+					plt.plot(alpha, train_pred, 'b', label = "Train AUC")<br/>
+					plt.plot(alpha, cv_pred, 'r', label = "cross val")<br/>
+
+					plt.legend()<br/>
+
+					plt.ylabel('AUC score')<br/>
+					plt.xlabel('alpha')<br/>
+					plt.show()<br/>
+					print("opt_alpha is : ", opt_alpha)<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					model = SSGDClassifier(alpha = opt_alpha,penalty='l2', loss='hinge', random_state=42)<br/>
+					model.fit(X_train, y_train)<br/>
+					tra_pred = model.predict_proba(X_train)[:,1]<br/>
+					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
+					roc_auc = auc(fpr, tpr)<br/>
+
+					test_pred = model.predict_proba(X_test)[:,1]<br/>
+					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
+					roc_auc2 = auc(fpr2, tpr2)<br/>
+
+					plt.title('Receiver Operating Characteristic')<br/>
+					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
+					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
+					plt.legend(loc='lower right')<br/>
+					plt.plot([0,1],[0,1],'g--')<br/>
+					plt.ylabel('True Positive Rate')<br/>
+					plt.xlabel('False Positive Rate')<br/>
+					plt.show()<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
+					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
+					class_label = ['0', '1']<br/>
+					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
+					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
+					plt.title("Confusion Matrix")<br/>
+					plt.xlabel("Predicted")<br/>
+					plt.ylabel("Actual")<br/>
+					plt.show()<br/>		
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					from sklearn.metrics import classification_report<br/>
+					print("Classification Report: \n")<br/>
+					prediction = model.predict(X_test)<br/>
+					print(classification_report(y_test, prediction))<br/>	
+
+				</code>
+			</div>
+			<div align="left" style="bpadding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					Classification Report: <br/>
+
+              					precision    recall  f1-score   support<br/>
+
+           				0       0.73      0.94      0.82        97<br/>
+           				1       0.80      0.42      0.70        57<br/>
+
+    				 accuracy                           0.75       154<br/>
+   				macro avg       0.77      0.68      0.69       154<br/>
+			     weighted avg       0.76      0.75      0.72       154<br/>
+
+
+				</code>
+			</div>
+			
 		</div>
 	</body>
 </html>
