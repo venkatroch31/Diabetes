@@ -340,7 +340,7 @@
 
 				</code>
 			</div>
-			<div align="left" style="bpadding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
 					Classification Report: <br/>
@@ -434,7 +434,7 @@
 
 				</code>
 			</div>
-			<div align="left" style="bpadding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
 					Classification Report: <br/>
@@ -527,7 +527,7 @@
 
 				</code>
 			</div>
-			<div align="left" style="bpadding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
 					
 					Classification Report: <br/>
@@ -544,7 +544,185 @@
 
 				</code>
 			</div>
-			
+			<h2>Random Forest</h2>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					estimator = [100,200,500,1000,2000]<br/>
+					depth = [5, 10]<br/>
+
+
+					parameter = {'n_estimators':estimator, 'max_depth':depth}<br/>
+					clf = RandomForestClassifier(class_weight = 'balanced')<br/>
+					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
+					model.fit(X_train,y_train)<br/>
+					opt_estimator, opt_depth = model.best_params_.get('n_estimators'), model.best_params_.get('max_depth')<br/>
+   
+					train_pred = model.cv_results_.get('mean_train_score')<br/>
+					cv_pred = model.cv_results_.get('mean_test_score')<br/>
+
+					#train_pred=train_pred.get('mean_train_score')<br/>
+					train_pred = train_pred.reshape(len(estimator), len(depth))<br/>
+					cv_pred = cv_pred.reshape(len(estimator), len(depth)) <br/>
+
+					print("opt_n_estimator is : ", opt_estimator , " max_depth is : ", opt_depth)<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					model = model = RandomForestClassifier(max_depth=opt_depth,n_estimators=opt_estimator,random_state=0,class_weight = 'balanced')
+					model.fit(X_train, y_train)<br/>
+					tra_pred = model.predict_proba(X_train)[:,1]<br/>
+					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
+					roc_auc = auc(fpr, tpr)<br/>
+
+					test_pred = model.predict_proba(X_test)[:,1]<br/>
+					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
+					roc_auc2 = auc(fpr2, tpr2)<br/>
+
+					plt.title('Receiver Operating Characteristic')<br/>
+					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
+					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
+					plt.legend(loc='lower right')<br/>
+					plt.plot([0,1],[0,1],'g--')<br/>
+					plt.ylabel('True Positive Rate')<br/>
+					plt.xlabel('False Positive Rate')<br/>
+					plt.show()<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
+					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
+					class_label = ['0', '1']<br/>
+					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
+					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
+					plt.title("Confusion Matrix")<br/>
+					plt.xlabel("Predicted")<br/>
+					plt.ylabel("Actual")<br/>
+					plt.show()<br/>		
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					from sklearn.metrics import classification_report<br/>
+					print("Classification Report: \n")<br/>
+					prediction = model.predict(X_test)<br/>
+					print(classification_report(y_test, prediction))<br/>	
+
+				</code>
+			</div>
+			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					Classification Report: <br/>
+
+              					precision    recall  f1-score   support<br/>
+
+           				0       0.73      0.94      0.82        97<br/>
+           				1       0.80      0.42      0.70        57<br/>
+
+    				 accuracy                           0.75       154<br/>
+   				macro avg       0.77      0.68      0.69       154<br/>
+			     weighted avg       0.76      0.75      0.72       154<br/>
+
+
+				</code>
+			</div>
+			<h2>XgBoost</h2>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					from xgboost.sklearn import XGBClassifier <br/>
+					estimator = [100,200,500,1000,2000]<br/>
+					depth = [5, 10]<br/>
+
+
+					parameter = {'n_estimators':estimator, 'max_depth':depth}<br/>
+					clf = XGBClassifier(class_weight = 'balanced')<br/>
+					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
+					model.fit(X_train,y_train)<br/>
+					opt_estimator, opt_depth = model.best_params_.get('n_estimators'), model.best_params_.get('max_depth')<br/>
+   
+					train_pred = model.cv_results_.get('mean_train_score')<br/>
+					cv_pred = model.cv_results_.get('mean_test_score')<br/>
+
+					#train_pred=train_pred.get('mean_train_score')<br/>
+					train_pred = train_pred.reshape(len(estimator), len(depth))<br/>
+					cv_pred = cv_pred.reshape(len(estimator), len(depth)) <br/>
+
+					print("opt_n_estimator is : ", opt_estimator , " max_depth is : ", opt_depth)<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					model = XGBClassifier(max_depth=opt_depth,n_estimators=opt_estimator,random_state=0,class_weight = 'balanced')
+					model.fit(X_train, y_train)<br/>
+					tra_pred = model.predict_proba(X_train)[:,1]<br/>
+					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
+					roc_auc = auc(fpr, tpr)<br/>
+
+					test_pred = model.predict_proba(X_test)[:,1]<br/>
+					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
+					roc_auc2 = auc(fpr2, tpr2)<br/>
+
+					plt.title('Receiver Operating Characteristic')<br/>
+					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
+					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
+					plt.legend(loc='lower right')<br/>
+					plt.plot([0,1],[0,1],'g--')<br/>
+					plt.ylabel('True Positive Rate')<br/>
+					plt.xlabel('False Positive Rate')<br/>
+					plt.show()<br/>					
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
+					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
+					class_label = ['0', '1']<br/>
+					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
+					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
+					plt.title("Confusion Matrix")<br/>
+					plt.xlabel("Predicted")<br/>
+					plt.ylabel("Actual")<br/>
+					plt.show()<br/>		
+
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					from sklearn.metrics import classification_report<br/>
+					print("Classification Report: \n")<br/>
+					prediction = model.predict(X_test)<br/>
+					print(classification_report(y_test, prediction))<br/>	
+
+				</code>
+			</div>
+			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					Classification Report: <br/>
+
+              					precision    recall  f1-score   support<br/>
+
+           				0       0.73      0.94      0.82        97<br/>
+           				1       0.80      0.42      0.70        57<br/>
+
+    				 accuracy                           0.75       154<br/>
+   				macro avg       0.77      0.68      0.69       154<br/>
+			     weighted avg       0.76      0.75      0.72       154<br/>
+
+
+				</code>
+			</div>
 		</div>
 	</body>
 </html>
