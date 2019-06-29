@@ -223,8 +223,7 @@
 				<strong>Cross Validation:</strong>  When model is split into training and testing it can be possible that specific type of data point may go entirely into either training or testing portion. This would lead the model to perform poorly. Hence over-fitting and underfitting problems can be well avoided with cross validation techniques
 			</p>
 			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
+				<code>					
 					X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)</br>
 				</code>
 			</div>
@@ -320,8 +319,7 @@
 			</div>
 			<center><img src="roc_pima.jpg /></center>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
+				<code>					
 					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
 					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
 					class_label = ['0', '1']<br/>
