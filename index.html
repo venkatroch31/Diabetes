@@ -198,9 +198,170 @@
 
 				</code>
 			</div>
+			<h2>Feature Scaling</h2>
+			<p>
+				One of the most important data transformations we need to apply is the features scaling. Basically most of the machine learning algorithms don't work very well if the features have a different set of values. In our case for example the Age ranges from 20 to 80 years old, while the number of times a patient has been pregnant ranges from 0 to 17. For this reason we need to apply a proper transformation.
+			</p>
+			<p>
+				data Z is rescaled such that μ = 0 and 𝛔 = 1, and is done through this formula: z = (x - μ) /𝛔
+			</p>
+			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					s = StandardScaler()</br>
+					X =  pd.DataFrame(s.fit_transform(diabetes_copy.drop(["Outcome"],axis = 1),),</br>
+					columns=['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', </br>
+						'Insulin','BMI', 'DiabetesPedigreeFunction', 'Age'])</br>
+					y = diabetes_copy.Outcome</br>
+				</code>
+			</div>
+			<h2>Splitting the data in train, test and cross validation</h2>
+			<p>
+				<strong>Train Test Split:</strong> To have unknown datapoints to test the data rather than testing with the same points with which the model was trained. This helps capture the model performance much better.
+			</p>
+			<p>
+				<strong>Cross Validation:</strong>  When model is split into training and testing it can be possible that specific type of data point may go entirely into either training or testing portion. This would lead the model to perform poorly. Hence over-fitting and underfitting problems can be well avoided with cross validation techniques
+			</p>
+			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)</br>
+				</code>
+			</div>
+			<h2>ML Models</h2>
+			<h4>What is grid search?</h4>
+			<p>
+				Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model. This is significant as the performance of the entire model is based on the hyper parameter values specified.
+			</p>
+			<h4> ROC Curve</h4>
+				<center><img src="roc_pima.jpg /></center>
+			<p>
+				AUC ROC is one of the most important evaluation metrics for any classification model’s performance.
+			</p>
+
+			<p>
+				ROC (Receiver Operating Characteristic) Curve tells us about how good the model can distinguish between two things (e.g If a patient has a disease or no). Better models can accurately distinguish between the two. Whereas, a poor model will have difficulties in distinguishing between the two
+			</p>
+			<h4>Confusion Matrix</h4>
+				<center><img src="roc_pima.jpg /></center>
+			<p>
+				A confusion matrix is a table that is often used to describe the performance of a classification model (or "classifier") on a set of test data for which the true values are known. The confusion matrix itself is relatively simple to understand, but the related terminology can be confusing. 
+			</p>
 			
+
 			
-			
+			<p>
+				<strong>Precision:</strong>  Precision is the ratio of correctly predicted positive observations to the total predicted positive observations. The question that this metric answer is of all passengers that labeled as survived, how many actually survived? High precision relates to the low false positive rate. 
+			</p>
+			<p>
+				Precision = TP/TP+FP
+			</p>
+			<p>
+				<strong>Recall (Sensitivity):</strong>   Recall is the ratio of correctly predicted positive observations to the all observations in actual class - yes. The question recall answers is: Of all the passengers that truly survived, how many did we label? A recall greater than 0.5 is good. 
+			</p>
+			<p>
+				Recall = TP/TP+FN
+			</p>
+
+			<p>
+				<strong>F1 score:</strong>  F1 Score is the weighted average of Precision and Recall. Therefore, this score takes both false positives and false negatives into account. Intuitively it is not as easy to understand as accuracy, but F1 is usually more useful than accuracy, especially if you have an uneven class distribution. Accuracy works best if false positives and false negatives have similar cost. If the cost of false positives and false negatives are very different, it’s better to look at both Precision and Recall.
+			</p>
+			<p>
+				F1 Score = 2(Recall Precision) / (Recall + Precision)
+			</p>
+			<h2>KNN</h2>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					neighbors = [1,5,10,15,21,31,41,51]<br/>
+					parameter = {'n_neighbors':neighbors}<br/>
+					clf = KNeighborsClassifier(algorithm='brute')<br/>
+					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
+					model.fit(X_train,y_train)<br/>
+					opt_k = model.best_params_.get('n_neighbors')<br/>   
+					train_pred = model.cv_results_.get('mean_train_score')<br/>
+					cv_pred = model.cv_results_.get('mean_test_score')<br/>
+					train_pred = train_pred.reshape(len(neighbors))<br/>
+					cv_pred = cv_pred.reshape(len(neighbors)) <br/>
+					plt.plot(neighbors, train_pred, 'b', label = "Train AUC")<br/>
+					plt.plot(neighbors, cv_pred, 'r', label = "cross val")<br/>
+					plt.legend()<br/>
+					plt.ylabel('AUC score')<br/>
+					plt.xlabel('k_hyperparameter')<br/>
+					plt.show()<br/>
+					print("opt_k is : ", opt_k)<br/>					
+
+				</code>
+			</div>
+			<center><img src="roc_pima.jpg /></center>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					model = KNeighborsClassifier(n_neighbors=opt_k, algorithm='brute')<br/>
+					model.fit(X_train, y_train)<br/>
+					tra_pred = model.predict_proba(X_train)[:,1]<br/>
+					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
+					roc_auc = auc(fpr, tpr)<br/>
+
+					test_pred = model.predict_proba(X_test)[:,1]<br/>
+					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
+					roc_auc2 = auc(fpr2, tpr2)<br/>
+
+					plt.title('Receiver Operating Characteristic')<br/>
+					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
+					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
+					plt.legend(loc='lower right')<br/>
+					plt.plot([0,1],[0,1],'g--')<br/>
+					plt.ylabel('True Positive Rate')<br/>
+					plt.xlabel('False Positive Rate')<br/>
+					plt.show()<br/>					
+
+				</code>
+			</div>
+			<center><img src="roc_pima.jpg /></center>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
+					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
+					class_label = ['0', '1']<br/>
+					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
+					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
+					plt.title("Confusion Matrix")<br/>
+					plt.xlabel("Predicted")<br/>
+					plt.ylabel("Actual")<br/>
+					plt.show()<br/>		
+
+				</code>
+			</div>
+			<center><img src="roc_pima.jpg /></center>
+			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					from sklearn.metrics import classification_report<br/>
+					print("Classification Report: \n")<br/>
+					prediction = model.predict(X_test)<br/>
+					print(classification_report(y_test, prediction))<br/>	
+
+				</code>
+			</div>
+			<div align="left" style="bpadding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
+				<code>
+					
+					Classification Report: <br/>
+
+              					precision    recall  f1-score   support<br/>
+
+           				0       0.73      0.94      0.82        97<br/>
+           				1       0.80      0.42      0.55        57<br/>
+
+    				 accuracy                           0.75       154<br/>
+   				macro avg       0.77      0.68      0.69       154<br/>
+			     weighted avg       0.76      0.75      0.72       154<br/>
+
+
+				</code>
+			</div>
 		</div>
 	</body>
 </html>
