@@ -14,7 +14,7 @@
 	</head>
 	
 	<body>
-		<center><img src="pima.jpg" /></center>
+		
 		<div>
 			<h1><center>Pima Indian Diabetes</center></h1>
 			<h2>Introduction</h2>
@@ -73,23 +73,15 @@
 					import seaborn as sns</br>
 					import time</br>
 					import warnings</br>
-					import sqlite3</br>
 					warnings.filterwarnings("ignore")</br>
-					from nltk.corpus import stopwords</br>
-					from sklearn.preprocessing import normalize</br>
-					from sklearn.feature_extraction.text import CountVectorizer</br>
-					from sklearn.manifold import TSNE</br>
 					from sklearn.neighbors import KNeighborsClassifier</br>
-					from sklearn.metrics import confusion_matrix</br>
 					from sklearn.metrics.classification import accuracy_score, log_loss</br>
 					from sklearn.svm import SVC</br>
 					from sklearn.calibration import CalibratedClassifierCV</br>
 					from sklearn.model_selection import train_test_split</br>
 					from sklearn.model_selection import GridSearchCV</br>
-					from sklearn.metrics import normalized_mutual_info_score</br>
 					from sklearn.ensemble import RandomForestClassifier</br>
 					from sklearn import metrics</br>
-					from nltk.stem.porter import PorterStemmer</br>
 
 				</code>
 			</div>
@@ -118,9 +110,9 @@
 
 				</code>
 			</div>
-			<div>
+			
 				<center><img src="1.PNG" /></center>
-			</div>
+			
 			<h2>Visualise the Data</h2>
 			<p>
 				Visualising the data is an important step of the data analysis. With a graphical visualisation of the data we have a better understanding of the various features values distribution: for example we can understand what's the average age of the people or the average BMI etc...
@@ -133,9 +125,9 @@
 
 				</code>
 			</div>
-			<div>
+			
 				<center><img src="2.PNG" /></center>
-			</div>
+			
 			
 			
 				<p>
@@ -234,395 +226,20 @@
 				</code>
 			</div>
 			<h2>ML Models</h2>
+			
+
+
+
+
+
 			<h4>What is grid search?</h4>
 			<p>
 				Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model. This is significant as the performance of the entire model is based on the hyper parameter values specified.
 			</p>
-			<h4> ROC Curve</h4>
-			<div>
-				<center><img src="roc_pima.PNG" /></center>
-			</div>
-			<p>
-				AUC ROC is one of the most important evaluation metrics for any classification model’s performance.
-			</p>
-
-			<p>
-				ROC (Receiver Operating Characteristic) Curve tells us about how good the model can distinguish between two things (e.g If a patient has a disease or no). Better models can accurately distinguish between the two. Whereas, a poor model will have difficulties in distinguishing between the two
-			</p>
-			<h4>Confusion Matrix</h4>
 			
-			<p>
-				A confusion matrix is a table that is often used to describe the performance of a classification model (or "classifier") on a set of test data for which the true values are known. The confusion matrix itself is relatively simple to understand, but the related terminology can be confusing. 
-			</p>
-			<div>
-				<center><img src="co.PNG" /></center>
-			</div>
-			<p>
-				It is extremely useful for measuring Recall, Precision, Specificity, Accuracy and most importantly AUC-ROC Curve. For clear understanding <a href="https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62" >con_mat</a>
-			</p>
 		
 			
-			<h2>KNN</h2>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					neighbors = [1,5,10,15,21,31,41,51]<br/>
-					parameter = {'n_neighbors':neighbors}<br/>
-					clf = KNeighborsClassifier(algorithm='brute')<br/>
-					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
-					model.fit(X_train,y_train)<br/>
-					opt_k = model.best_params_.get('n_neighbors')<br/>   
-					train_pred = model.cv_results_.get('mean_train_score')<br/>
-					cv_pred = model.cv_results_.get('mean_test_score')<br/>
-					train_pred = train_pred.reshape(len(neighbors))<br/>
-					cv_pred = cv_pred.reshape(len(neighbors)) <br/>
-					plt.plot(neighbors, train_pred, 'b', label = "Train AUC")<br/>
-					plt.plot(neighbors, cv_pred, 'r', label = "cross val")<br/>
-					plt.legend()<br/>
-					plt.ylabel('AUC score')<br/>
-					plt.xlabel('k_hyperparameter')<br/>
-					plt.show()<br/>
-					print("opt_k is : ", opt_k)<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="k1.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					model = KNeighborsClassifier(n_neighbors=opt_k, algorithm='brute')<br/>
-					model.fit(X_train, y_train)<br/>
-					tra_pred = model.predict_proba(X_train)[:,1]<br/>
-					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
-					roc_auc = auc(fpr, tpr)<br/>
-
-					test_pred = model.predict_proba(X_test)[:,1]<br/>
-					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
-					roc_auc2 = auc(fpr2, tpr2)<br/>
-
-					plt.title('Receiver Operating Characteristic')<br/>
-					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
-					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
-					plt.legend(loc='lower right')<br/>
-					plt.plot([0,1],[0,1],'g--')<br/>
-					plt.ylabel('True Positive Rate')<br/>
-					plt.xlabel('False Positive Rate')<br/>
-					plt.show()<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="k2.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
-					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
-					class_label = ['0', '1']<br/>
-					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
-					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
-					plt.title("Confusion Matrix")<br/>
-					plt.xlabel("Predicted")<br/>
-					plt.ylabel("Actual")<br/>
-					plt.show()<br/>		
-
-				</code>
-			</div>
-			<div>
-				<center><img src="k3.PNG" /></center>
-			</div>
 			
-			<h2>Logistic Regression</h2>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					alpha = [10 ** x for x in range(-6, 3)]<br/>
-
-					parameter = {'alpha':alpha}<br/>
-					clf = SGDClassifier(penalty='l2', loss='log', random_state=42)<br/>
-					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
-					model.fit(X_train,y_train)<br/>
-					opt_alpha = model.best_params_.get('alpha')<br/>
-   
-					train_pred = model.cv_results_.get('mean_train_score')<br/>
-					cv_pred = model.cv_results_.get('mean_test_score')<br/>
-					train_pred = train_pred.reshape(len(alpha))<br/>
-					cv_pred = cv_pred.reshape(len(alpha)) <br/>
-
-					plt.plot(alpha, train_pred, 'b', label = "Train AUC")<br/>
-					plt.plot(alpha, cv_pred, 'r', label = "cross val")<br/>
-
-					plt.legend()<br/>
-
-					plt.ylabel('AUC score')<br/>
-					plt.xlabel('alpha')<br/>
-					plt.show()<br/>
-					print("opt_alpha is : ", opt_alpha)<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="l1.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					model = SGDClassifier(alpha = opt_alpha,penalty='l2', loss='log', random_state=42)<br/>
-					model.fit(X_train, y_train)<br/>
-					tra_pred = model.predict_proba(X_train)[:,1]<br/>
-					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
-					roc_auc = auc(fpr, tpr)<br/>
-
-					test_pred = model.predict_proba(X_test)[:,1]<br/>
-					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
-					roc_auc2 = auc(fpr2, tpr2)<br/>
-
-					plt.title('Receiver Operating Characteristic')<br/>
-					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
-					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
-					plt.legend(loc='lower right')<br/>
-					plt.plot([0,1],[0,1],'g--')<br/>
-					plt.ylabel('True Positive Rate')<br/>
-					plt.xlabel('False Positive Rate')<br/>
-					plt.show()<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="l2.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
-					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
-					class_label = ['0', '1']<br/>
-					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
-					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
-					plt.title("Confusion Matrix")<br/>
-					plt.xlabel("Predicted")<br/>
-					plt.ylabel("Actual")<br/>
-					plt.show()<br/>		
-
-				</code>
-			</div>
-			<div>
-				<center><img src="l3.PNG" /></center>
-			</div>
-			
-			<h2>Linear SVM</h2>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					alpha = [10 ** x for x in range(-5, 2)]<br/>
-
-					parameter = {'alpha':alpha}<br/>
-					clf = SGDClassifier(penalty='l2', loss='hinge', random_state=42)<br/>
-					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
-					model.fit(X_train,y_train)<br/>
-					opt_alpha = model.best_params_.get('alpha')<br/>
-   
-					train_pred = model.cv_results_.get('mean_train_score')<br/>
-					cv_pred = model.cv_results_.get('mean_test_score')<br/>
-					train_pred = train_pred.reshape(len(alpha))<br/>
-					cv_pred = cv_pred.reshape(len(alpha)) <br/>
-
-					plt.plot(alpha, train_pred, 'b', label = "Train AUC")<br/>
-					plt.plot(alpha, cv_pred, 'r', label = "cross val")<br/>
-
-					plt.legend()<br/>
-
-					plt.ylabel('AUC score')<br/>
-					plt.xlabel('alpha')<br/>
-					plt.show()<br/>
-					print("opt_alpha is : ", opt_alpha)<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="s1.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					model = SSGDClassifier(alpha = opt_alpha,penalty='l2', loss='hinge', random_state=42)<br/>
-					model.fit(X_train, y_train)<br/>
-					tra_pred = model.predict_proba(X_train)[:,1]<br/>
-					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
-					roc_auc = auc(fpr, tpr)<br/>
-
-					test_pred = model.predict_proba(X_test)[:,1]<br/>
-					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
-					roc_auc2 = auc(fpr2, tpr2)<br/>
-
-					plt.title('Receiver Operating Characteristic')<br/>
-					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
-					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
-					plt.legend(loc='lower right')<br/>
-					plt.plot([0,1],[0,1],'g--')<br/>
-					plt.ylabel('True Positive Rate')<br/>
-					plt.xlabel('False Positive Rate')<br/>
-					plt.show()<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="s2.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
-					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
-					class_label = ['0', '1']<br/>
-					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
-					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
-					plt.title("Confusion Matrix")<br/>
-					plt.xlabel("Predicted")<br/>
-					plt.ylabel("Actual")<br/>
-					plt.show()<br/>		
-
-				</code>
-			</div>
-			<div>
-				<center><img src="s3.PNG" /></center>
-			</div>
-			
-			<h2>Random Forest</h2>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					estimator = [100,200,500,1000,2000]<br/>
-					depth = [5, 10]<br/>
-
-
-					parameter = {'n_estimators':estimator, 'max_depth':depth}<br/>
-					clf = RandomForestClassifier(class_weight = 'balanced')<br/>
-					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
-					model.fit(X_train,y_train)<br/>
-					opt_estimator, opt_depth = model.best_params_.get('n_estimators'), model.best_params_.get('max_depth')<br/>
-   
-					train_pred = model.cv_results_.get('mean_train_score')<br/>
-					cv_pred = model.cv_results_.get('mean_test_score')<br/>
-
-					train_pred = train_pred.reshape(len(estimator), len(depth))<br/>
-					cv_pred = cv_pred.reshape(len(estimator), len(depth)) <br/>
-
-					print("opt_n_estimator is : ", opt_estimator , " max_depth is : ", opt_depth)<br/>					
-
-				</code>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					model = model = RandomForestClassifier(max_depth=opt_depth,n_estimators=opt_estimator,random_state=0,class_weight = 'balanced')
-					model.fit(X_train, y_train)<br/>
-					tra_pred = model.predict_proba(X_train)[:,1]<br/>
-					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
-					roc_auc = auc(fpr, tpr)<br/>
-
-					test_pred = model.predict_proba(X_test)[:,1]<br/>
-					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
-					roc_auc2 = auc(fpr2, tpr2)<br/>
-
-					plt.title('Receiver Operating Characteristic')<br/>
-					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
-					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
-					plt.legend(loc='lower right')<br/>
-					plt.plot([0,1],[0,1],'g--')<br/>
-					plt.ylabel('True Positive Rate')<br/>
-					plt.xlabel('False Positive Rate')<br/>
-					plt.show()<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="r2.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
-					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
-					class_label = ['0', '1']<br/>
-					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
-					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
-					plt.title("Confusion Matrix")<br/>
-					plt.xlabel("Predicted")<br/>
-					plt.ylabel("Actual")<br/>
-					plt.show()<br/>		
-
-				</code>
-			</div>
-			<div>
-				<center><img src="r3.PNG" /></center>
-			</div>
-			
-			<h2>XgBoost</h2>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					from xgboost.sklearn import XGBClassifier <br/>
-					estimator = [100,200,500,1000,2000]<br/>
-					depth = [5, 10]<br/>
-
-
-					parameter = {'n_estimators':estimator, 'max_depth':depth}<br/>
-					clf = XGBClassifier(class_weight = 'balanced')<br/>
-					model = GridSearchCV(clf,parameter,verbose=1,scoring='roc_auc',n_jobs=-1,return_train_score=True)<br/>
-					model.fit(X_train,y_train)<br/>
-					opt_estimator, opt_depth = model.best_params_.get('n_estimators'), model.best_params_.get('max_depth')<br/>
-   
-					train_pred = model.cv_results_.get('mean_train_score')<br/>
-					cv_pred = model.cv_results_.get('mean_test_score')<br/>
-
-					train_pred = train_pred.reshape(len(estimator), len(depth))<br/>
-					cv_pred = cv_pred.reshape(len(estimator), len(depth)) <br/>
-
-					print("opt_n_estimator is : ", opt_estimator , " max_depth is : ", opt_depth)<br/>					
-
-				</code>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					model = XGBClassifier(max_depth=opt_depth,n_estimators=opt_estimator,random_state=0,class_weight = 'balanced')
-					model.fit(X_train, y_train)<br/>
-					tra_pred = model.predict_proba(X_train)[:,1]<br/>
-					fpr, tpr, thresholds = roc_curve(y_train,tra_pred)<br/>
-					roc_auc = auc(fpr, tpr)<br/>
-
-					test_pred = model.predict_proba(X_test)[:,1]<br/>
-					fpr2, tpr2, thresholds2 = roc_curve(y_test,test_pred)<br/>
-					roc_auc2 = auc(fpr2, tpr2)<br/>
-
-					plt.title('Receiver Operating Characteristic')<br/>
-					plt.plot(fpr, tpr, 'b',label='Train AUC = %0.2f'% roc_auc)<br/>
-					plt.plot(fpr2, tpr2, 'r',label='Test AUC = %0.2f'% roc_auc2)<br/>
-					plt.legend(loc='lower right')<br/>
-					plt.plot([0,1],[0,1],'g--')<br/>
-					plt.ylabel('True Positive Rate')<br/>
-					plt.xlabel('False Positive Rate')<br/>
-					plt.show()<br/>					
-
-				</code>
-			</div>
-			<div>
-				<center><img src="xx2.PNG" /></center>
-			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>					
-					conf_matrix = confusion_matrix(y_train, model.predict(X_train))<br/>
-					conf_matrix = confusion_matrix(y_test, model.predict(X_test))<br/>
-					class_label = ['0', '1']<br/>
-					df_conf_matrix = pd.DataFrame(conf_matrix, index=class_label, columns=class_label)<br/>
-					sb.heatmap(df_conf_matrix, annot=True, fmt='d')<br/>
-					plt.title("Confusion Matrix")<br/>
-					plt.xlabel("Predicted")<br/>
-					plt.ylabel("Actual")<br/>
-					plt.show()<br/>		
-
-				</code>
-			</div>
-			<div>
-				<center><img src="x3.PNG" /></center>
-			</div>
 			
 			<h2>Conclusion</h2>
 			<p>
