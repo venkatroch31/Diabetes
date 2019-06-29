@@ -36,7 +36,3 @@ Data: Download diabetes.zip from Kaggle.
     Jupyter Notebook.
     Basic understanding of supervised machine learning methods : specifically classification.
 
-## 4. Train, CV and Test Datasets
-
-    Split the dataset randomly into three parts train, cross validation and test 
-    with 64%,16%, 20% of data respectively
