@@ -231,18 +231,179 @@
 				</code>
 			</div>
 			<h2>ML Models</h2>
-			
-
-
-
-
-
+			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					
+					models = []<br/>
+					models.append(('LR', LogisticRegression()))<br/>
+					models.append(('KNN', KNeighborsClassifier()))<br/>
+					models.append(('NB', GaussianNB()))<br/>
+					models.append(('SVC_lin', SVC(kernel="linear")))<br/>
+					models.append(('SVC_rbf', SVC(kernel="rbf")))<br/>
+					models.append(('LSVC', LinearSVC()))<br/>
+					models.append(('RFC', RandomForestClassifier()))<br/>
+					models.append(('DTR', DecisionTreeRegressor()))<br/>
+					models.append(('XGB', XGBClassifier()))<br/>
+				</code>
+			</div><br/><br/>
+			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					
+					# Prepare the configuration to run the test<br/>
+					seed = 9<br/>
+					results = []<br/>
+					names = []<br/>
+					X = X_train<br/>
+					Y = y_train<br/>
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					
+					for name, model in models:<br/>
+   					 	kfold = model_selection.KFold(n_splits=10, random_state=seed)<br/>
+    						cv_results = model_selection.cross_val_score(model, X, Y, cv=kfold, scoring='accuracy')<br/>
+    						results.append(cv_results)<br/>
+    						names.append(name)<br/>
+    						msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())<br/>
+    						print(msg)<br/>
+				</code>
+			</div>
+			<div align="left" style="background-color:lightblue; padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					
+					for name, model in models:<br/>
+   					 	kfold = model_selection.KFold(n_splits=10, random_state=seed)<br/>
+    						cv_results = model_selection.cross_val_score(model, X, Y, cv=kfold, scoring='accuracy')<br/>
+    						results.append(cv_results)<br/>
+    						names.append(name)<br/>
+    						msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())<br/>
+    						print(msg)<br/>
+				</code>
+			</div>
+			div align="left" style=" padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					
+					
+					LR: 0.763934 (0.062926)<br/>
+					KNN: 0.744236 (0.044908)<br/>
+					NB: 0.744157 (0.052273)<br/>
+					SVC_lin: 0.768747 (0.060924)<br/>
+					SVC_rbf: 0.754098 (0.058642)<br/>
+					LSVC: 0.760682 (0.064072)<br/>
+					RFC: 0.734320 (0.071838)<br/>
+					DTR: 0.692147 (0.080603)<br/>
+					XGB: 0.760471 (0.052592)<br/>
+				</code>
+			</div>
+			div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>					
+					
+					
+					
+					# boxplot algorithm comparison<br/>
+					fig = plt.figure()<br/>
+					fig.suptitle('Algorithm Comparison')<br/>
+					ax = fig.add_subplot(111)<br/>
+					plt.boxplot(results)<br/>
+					ax.set_xticklabels(names)<br/>
+					plt.show()<br/>
+				</code>
+			</div>
 			<h4>What is grid search?</h4>
 			<p>
 				Grid search is the process of performing hyper parameter tuning in order to determine the optimal values for a given model. This is significant as the performance of the entire model is based on the hyper parameter values specified.
 			</p>
 			
 		
+			div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>				
+					param_grid = {'C': [0.01, 0.1, 1.0, 10.0, 50.0],'kernel': ['linear']}<br/>
+					model_svc = SVC()<br/>
+					grid_search = GridSearchCV(model_svc, param_grid, cv=10, scoring='accuracy')<br/>
+					grid_search.fit(X_train, y_train)<br/>
+					
+					
+					
+				</code>
+			</div>
+			div align="left" style=" background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>				
+					# Print the bext score found and best_estimator<br/>
+					print("Best score: %0.2f%%" % (100*grid_search.best_score_))<br/>
+					print("Best estimator for parameter C: %f" % (grid_search.best_estimator_.C))<br/>
+					
+					
+					
+				</code>
+			</div>
+			div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>				
+					Best score: 77.36%<br/>
+					Best estimator for parameter C: 0.010000<br/>				
+					
+					
+				</code>
+			</div>
+			<h2>Apply the parameters to the model and train it</h2>
+			div align="left" style="background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>				
+					# Create an instance of the algorithm using parameters<br/>
+					# from best_estimator_ property<br/>
+					svc = grid_search.best_estimator_<br/>
+
+					# Use the whole dataset to train the model<br/>
+					X = np.append(X_train, X_test, axis=0)<br/>
+					Y = np.append(y_train, y_test, axis=0)<br/>
+
+					# Train the model<br/>
+					svc.fit(X, Y)<br/>				
+					
+					
+				</code>
+			</div>
+
+			div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>				
+					
+					SVC(C=0.01, cache_size=200, class_weight=None, coef0=0.0,<br/>
+    						decision_function_shape='ovr', degree=3, gamma='auto_deprecated',<br/>
+    						kernel='linear', max_iter=-1, probability=False, random_state=None,<br/>
+    						shrinking=True, tol=0.001, verbose=False)<br/>				
+					
+					
+				</code>
+			</div>
+			<h2>Make a Prediction</h2>
+			div align="left" style="background-color:lightblue;padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>				
+					
+					
+					# We create a new (fake) person having the three most correated values high<br/>
+					new_df = pd.DataFrame([[16, 168, 62, 45, 0, 23.6, 0.62, 65]])<br/>
+					# We scale those values like the others<br/>
+					new_df_scaled = s.transform(new_df)<br/>
+					prediction = svc.predict(new_df_scaled)<br/>
+					# A value of "1" means that this person is likley to have type 2 diabetes<br/>
+					prediction<br/>
+					
+					
+					
+				</code>
+			</div><br/>
+			div align="left" style="padding-left:10px"; style="overflow-y:hidden;overflow-x:scroll">
+				<code>				
+					
+					
+					array([1])
+					
+					
+					
+				</code>
+			</div>
+
+			
+			
 			
 			
 			
