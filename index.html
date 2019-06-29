@@ -261,25 +261,7 @@
 				It is extremely useful for measuring Recall, Precision, Specificity, Accuracy and most importantly AUC-ROC Curve. For clear understanding <a href="https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62" >con_mat</a>
 			</p>
 		
-			<p>
-				<strong>Precision:</strong>  Precision is the ratio of correctly predicted positive observations to the total predicted positive observations. The question that this metric answer is of all passengers that labeled as survived, how many actually survived? High precision relates to the low false positive rate. 
-			</p>
-			<p>
-				Precision = TP/TP+FP
-			</p>
-			<p>
-				<strong>Recall (Sensitivity):</strong>   Recall is the ratio of correctly predicted positive observations to the all observations in actual class - yes. The question recall answers is: Of all the passengers that truly survived, how many did we label? A recall greater than 0.5 is good. 
-			</p>
-			<p>
-				Recall = TP/TP+FN
-			</p>
-
-			<p>
-				<strong>F1 score:</strong>  F1 Score is the weighted average of Precision and Recall. Therefore, this score takes both false positives and false negatives into account. Intuitively it is not as easy to understand as accuracy, but F1 is usually more useful than accuracy, especially if you have an uneven class distribution. Accuracy works best if false positives and false negatives have similar cost. If the cost of false positives and false negatives are very different, it’s better to look at both Precision and Recall.
-			</p>
-			<p>
-				F1 Score = 2(Recall Precision) / (Recall + Precision)
-			</p>
+			
 			<h2>KNN</h2>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -351,33 +333,7 @@
 			<div>
 				<center><img src="k1.PNG" /></center>
 			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					from sklearn.metrics import classification_report<br/>
-					print("Classification Report: \n")<br/>
-					prediction = model.predict(X_test)<br/>
-					print(classification_report(y_test, prediction))<br/>	
-
-				</code>
-			</div>
-			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					Classification Report: <br/>
-
-              					precision    recall  f1-score   support<br/>
-
-           				0       0.73      0.94      0.82        97<br/>
-           				1       0.80      0.42      0.55        57<br/>
-
-    				 accuracy                           0.75       154<br/>
-   				macro avg       0.77      0.68      0.69       154<br/>
-			     weighted avg       0.76      0.75      0.72       154<br/>
-
-
-				</code>
-			</div>
+			
 			<h2>Logistic Regression</h2>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -454,33 +410,7 @@
 			<div>
 				<center><img src="l3.PNG" /></center>
 			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					from sklearn.metrics import classification_report<br/>
-					print("Classification Report: \n")<br/>
-					prediction = model.predict(X_test)<br/>
-					print(classification_report(y_test, prediction))<br/>	
-
-				</code>
-			</div>
-			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					Classification Report: <br/>
-
-              					precision    recall  f1-score   support<br/>
-
-           				0       0.73      0.94      0.82        97<br/>
-           				1       0.80      0.42      0.70        57<br/>
-
-    				 accuracy                           0.75       154<br/>
-   				macro avg       0.77      0.68      0.69       154<br/>
-			     weighted avg       0.76      0.75      0.72       154<br/>
-
-
-				</code>
-			</div>
+			
 			<h2>Linear SVM</h2>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -556,33 +486,7 @@
 			<div>
 				<center><img src="s3.PNG" /></center>
 			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					from sklearn.metrics import classification_report<br/>
-					print("Classification Report: \n")<br/>
-					prediction = model.predict(X_test)<br/>
-					print(classification_report(y_test, prediction))<br/>	
-
-				</code>
-			</div>
-			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					Classification Report: <br/>
-
-              					precision    recall  f1-score   support<br/>
-
-           				0       0.73      0.94      0.82        97<br/>
-           				1       0.80      0.42      0.70        57<br/>
-
-    				 accuracy                           0.75       154<br/>
-   				macro avg       0.77      0.68      0.69       154<br/>
-			     weighted avg       0.76      0.75      0.72       154<br/>
-
-
-				</code>
-			</div>
+			
 			<h2>Random Forest</h2>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -650,33 +554,7 @@
 			<div>
 				<center><img src="r3.PNG" /></center>
 			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					from sklearn.metrics import classification_report<br/>
-					print("Classification Report: \n")<br/>
-					prediction = model.predict(X_test)<br/>
-					print(classification_report(y_test, prediction))<br/>	
-
-				</code>
-			</div>
-			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					Classification Report: <br/>
-
-              					precision    recall  f1-score   support<br/>
-
-           				0       0.73      0.94      0.82        97<br/>
-           				1       0.80      0.42      0.70        57<br/>
-
-    				 accuracy                           0.75       154<br/>
-   				macro avg       0.77      0.68      0.69       154<br/>
-			     weighted avg       0.76      0.75      0.72       154<br/>
-
-
-				</code>
-			</div>
+			
 			<h2>XgBoost</h2>
 			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
 				<code>
@@ -745,33 +623,7 @@
 			<div>
 				<center><img src="x3.PNG" /></center>
 			</div>
-			<div align="left" style="background-color:lightblue; padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					from sklearn.metrics import classification_report<br/>
-					print("Classification Report: \n")<br/>
-					prediction = model.predict(X_test)<br/>
-					print(classification_report(y_test, prediction))<br/>	
-
-				</code>
-			</div>
-			<div align="left" style="padding-left:10px" style="overflow-y:hidden;overflow-x:scroll">
-				<code>
-					
-					Classification Report: <br/>
-
-              					precision    recall  f1-score   support<br/>
-
-           				0       0.73      0.94      0.82        97<br/>
-           				1       0.80      0.42      0.70        57<br/>
-
-    				 accuracy                           0.75       154<br/>
-   				macro avg       0.77      0.68      0.69       154<br/>
-			     weighted avg       0.76      0.75      0.72       154<br/>
-
-
-				</code>
-			</div>
+			
 			<h2>Conclusion</h2>
 			<p>
 				We finally find a score of 76% using SVC algorithm and parameters optimisation. Please note that there may be still space for further analysis and optimisation, for example trying different data transformations or trying algorithms that haven't been tested yet. Once again I want to repeat that training a machine learning model to solve a problem with a specific dataset is a try / fail / improve process.
